@@ -1,0 +1,15 @@
+name: Actas de Reunión
+description: Plantilla para las actas de reunión
+title: "Acta-[dd/mm]"
+labels: ["documentation"]
+body:
+  - type: textarea
+    id: Suggestion
+    attributes:
+      label: Acta de Reunión [dd/mm]
+      description: Describe the feature(s) you would like to see added.
+      placeholder: Escribe aquí
+      value: "Your suggestion here"
+    validations:
+      required: false
+ 
