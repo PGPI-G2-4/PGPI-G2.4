@@ -2,13 +2,16 @@
 name: Actas de Reunión
 about: Plantilla para issues sobre actas de reunión
 title: Acta de Reunión _DATE_
-labels: documentation
+labels: acta de reunion, documentation
 assignees: ''
 
 ---
 
-# Descripción
-Acta de reunión con xxx
+# Agenda de la Reunión
+El objetivo de esta reunión es...
+
+# Resumen de la Reunión
+Brevemente lo que se ha hecho o dicho en ella
 
 # Cambios Propuestos
 
@@ -18,4 +21,4 @@ Acta de reunión con xxx
 # Trabajo por Hacer
 
 - #COMMIT_NUMBER
-- 
+-
