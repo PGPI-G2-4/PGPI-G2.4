@@ -1,8 +1,8 @@
 ---
-name: Tareas
+name: "☑ | Tareas"
 about: Plantilla para crear issues relacionados con las tareas del proyecto
 title: 'TASK-XXX: [PEQUEÑA DESCRIPCION]'
-labels: ''
+labels: "☑ task"
 assignees: ddiazlop
 
 ---

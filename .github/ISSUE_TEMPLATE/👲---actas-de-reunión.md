@@ -1,8 +1,8 @@
 ---
-name: Actas de Reunión
+name: "\U0001F472 | Actas de Reunión"
 about: Plantilla para issues sobre actas de reunión
 title: Acta de Reunión _DATE_
-labels: "\U0001F472 acta de reunion"
+labels: "\U0001F472 acta de reunion, \U0001F5F3 Solicitud de Cambio"
 assignees: ddiazlop
 
 ---
