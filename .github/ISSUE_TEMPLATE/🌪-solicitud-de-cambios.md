@@ -1,5 +1,5 @@
 ---
-name: Solicitud De Cambios
+name: "\U0001F32A Solicitud De Cambios"
 about: Plantilla del Plan de Gestión de Cambios
 title: "[TITULO SOLICITUD]"
 labels: "\U0001F5F3 Solicitud de Cambio"
