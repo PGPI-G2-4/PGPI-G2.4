@@ -7,10 +7,10 @@ assignees: ddiazlop
 
 ---
 
-##Descripción
+## Descripción
 *Lorem ipsum*
 
-##Prerrequisitos
+## Prerrequisitos
 *Lorem ipsum*
 
-#Observaciones
+## Observaciones
