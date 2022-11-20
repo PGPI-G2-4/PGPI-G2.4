@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import AbstractUser , BaseUserManager
 from time import gmtime, strftime
@@ -9,6 +10,138 @@ from django.template.defaultfilters import truncatechars
 from unidecode import unidecode
 from django.utils.translation import gettext_lazy as _
 import random
+
+
+class User(AbstractUser):
+    class GenderChoice(models.TextChoices):
+        MALE = "M", "Male"
+        FEMAILE = "F", "Female"
+        UNSET = "FM", "Unset"
+
+    # Contact Info
+    id = models.AutoField(primary_key=True)
+    email = models.EmailField(_('email address'), unique=True, max_length=30, blank=True, null=True)
+    password = models.CharField(max_length=255)
+
+    # Personal Info
+    first_name = models.CharField(max_length=20, null=True, blank=True)
+    last_name = models.CharField(max_length=20, null=True, blank=True)
+    age = models.IntegerField(blank=True, null=True)
+    gender = models.CharField(max_length=2, choices=GenderChoice.choices, default=GenderChoice.UNSET)
+    region = models.CharField(max_length=20, null=True, blank=True)
+
+    # Medical Info
+    alergies = models.CharField(max_length=100, null=True, blank=True)
+    pathologies = models.CharField(max_length=100, null=True, blank=True)
+
+    # Social Info
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=True)
+    is_superuser = models.BooleanField(default=False)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
+
+    # objects = CustomUserManager
+
+    class Meta:
+        verbose_name_plural = "User"
+
+    def __str__(self):
+        return self.email
+
+class Department(models.Model):
+    name = models.CharField(max_length=100, primary_key=True)
+
+class Medic(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100, null=False, blank=False)
+    surname = models.CharField(max_length=100, null=False, blank=False)
+    image = models.ImageField(upload_to='static/images/medic/'.format(strftime('%Y%m%d-%H%M%S', gmtime())), default='no-image.jpg')
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, null=False, blank=False)
+
+class Appoinment(models.Model):
+    id = models.AutoField(primary_key=True)
+    date_time = models.DateTimeField(null=False, blank=False)
+    # Appointments without a client are available for booking.
+    client_name = models.CharField(max_length=50, null=True, blank=True)
+    client_surname = models.CharField(max_length=50, null=False, blank=False)
+    client_email = models.EmailField(max_length=50, null=False, blank=False)
+    price = models.IntegerField(null=False, blank=False)
+    medic = models.ForeignKey(Medic, on_delete=models.CASCADE, null=False, blank=False)
+
+    unique_together = ('date_time', 'medic')
+    unique_together = ('department', 'client_email')
+    # date must be 3 days in the future
+    def clean(self):
+        if self.date_time < timezone.now() + timezone.timedelta(days=3):
+            raise ValidationError(_('Date must be 3 days in the future'))
+
+    def __str__(self):
+        return f"{self.client_name} {self.client_surname} || Médico: {self.medic.name} {self.medic.surname}"
+
+    class Meta:
+        verbose_name_plural = "Appoinment"
+
+
+###################### DEPRECRATED ############################
+
+# class User(AbstractUser):
+#     class GenderChoice(models.TextChoices):
+#         MALE = "M", "Male"
+#         FEMAILE = "F", "Female"
+#         UNSET = "FM", "Unset"
+#
+#     class NewsChoice(models.TextChoices):
+#         TRUE = 'T', 'مشترک خبرنامه'
+#         FALSE = 'F', 'عدم اشتراک در خبرنامه'
+#
+#     id = models.AutoField(primary_key=True)
+#
+#     first_name = models.CharField(max_length=20, null=True, blank=True)
+#     last_name = models.CharField(max_length=20, null=True, blank=True)
+#     age = models.IntegerField(blank=True, null=True)
+#     password = models.CharField(max_length=255)
+#     gender = models.CharField(max_length=2, choices=GenderChoice.choices, default=GenderChoice.UNSET)
+#     address = models.CharField(max_length=60, null=True, blank=True)
+#     phone = models.CharField(max_length=15, validators=[phone_validator], blank=True)
+#     email = models.EmailField(_('email address'), unique=True, max_length=30, blank=True, null=True)
+#     city = models.CharField(max_length=100, null=True, blank=True)
+#     state = models.ForeignKey(States, on_delete=models.CASCADE, null=True, blank=True)
+#     postcode = models.CharField(max_length=10, null=True, blank=True)
+#     date_joind = models.DateField(blank=True, null=True)
+#     description = models.TextField(blank=True, null=True)
+#     is_active = models.BooleanField(default=True)
+#     is_staff = models.BooleanField(default=True)
+#     is_superuser = models.BooleanField(default=False)
+#     last_login = models.DateField(blank=True, null=True)
+#     khabarname = models.CharField(
+#         max_length=5,
+#         choices=NewsChoice.choices,
+#         default=NewsChoice.FALSE,
+#         null=True, blank=True
+#     )
+#     avatar = models.ImageField(
+#         upload_to='static/images/profile/{0}'.format(strftime('%Y%m%d-%H%M%S', gmtime())),
+#         default='no-image.jpg',
+#         width_field='imagewidth',
+#         height_field='imageheight',
+#     )
+#
+#     imagewidth = models.PositiveIntegerField(editable=False, default=65)
+#     imageheight = models.PositiveIntegerField(editable=False, default=65)
+#
+#     USERNAME_FIELD = 'email'
+#     REQUIRED_FIELDS = ['username']
+#
+#     # objects = CustomUserManager
+#
+#     class Meta:
+#         verbose_name_plural = "User"
+#
+#     def __str__(self):
+#         return self.email
+#
 
 
 
@@ -56,66 +189,6 @@ class States(models.Model):
 
 
 
-class User(AbstractUser):
-    
-    class GenderChoice(models.TextChoices):
-        MALE = "M" ,"Male"
-        FEMAILE = "F" ,"Female"
-        UNSET = "FM" ,"Unset"
-
-    class NewsChoice(models.TextChoices):
-        TRUE = 'T','مشترک خبرنامه'
-        FALSE = 'F' , 'عدم اشتراک در خبرنامه'
-
-    id = models.AutoField(primary_key=True)
-    
-    first_name = models.CharField(max_length=20 ,null=True ,blank=True)
-    last_name = models.CharField(max_length=20 ,null=True ,blank=True)
-    age = models.IntegerField(blank=True ,null=True)
-    password = models.CharField(max_length=255)
-    gender=models.CharField(max_length=2 ,choices=GenderChoice.choices ,default=GenderChoice.UNSET)
-    address =models.CharField(max_length=60 ,null=True ,blank=True )
-    phone=models.CharField(max_length=15 ,validators=[phone_validator] ,blank=True)
-    email=models.EmailField(_('email address') ,unique=True ,  max_length=30 ,blank=True ,null=True)
-    city=models.CharField(max_length=100, null=True , blank=True)
-    state=models.ForeignKey(States, on_delete=models.CASCADE , null=True,blank=True)
-    postcode=models.CharField(max_length=10 , null=True, blank=True)
-    date_joind=models.DateField(blank=True ,null=True)
-    description=models.TextField(blank=True ,null=True)
-    is_active=models.BooleanField(default=True)
-    is_staff=models.BooleanField(default=True)
-    is_superuser=models.BooleanField(default=False)
-    last_login=models.DateField(blank=True ,null=True)
-    khabarname=models.CharField(
-        max_length=5 ,
-        choices=NewsChoice.choices , 
-        default=NewsChoice.FALSE ,
-        null=True, blank=True
-    )
-    avatar= models.ImageField(
-        upload_to= 'static/images/profile/{0}'.format(strftime('%Y%m%d-%H%M%S',gmtime())) ,
-        default='no-image.jpg' ,
-        width_field='imagewidth' ,
-        height_field='imageheight' ,
-        )
-
-    imagewidth = models.PositiveIntegerField(editable = False, default = 65)
-    imageheight = models.PositiveIntegerField(editable = False, default = 65)
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
-
-    #objects = CustomUserManager
-
-    class Meta:
-        verbose_name_plural = "User"
-        
-
-    def __str__(self):
-        return self.email
-
-   
-    
 
 
 
@@ -250,7 +323,6 @@ class Kala(models.Model):
 
 class KalaInstance(models.Model):
     kala=models.ForeignKey(Kala ,on_delete=models.CASCADE , related_name='kalainstance')
-    saller=models.ForeignKey(User , on_delete=models.CASCADE)
     price=models.BigIntegerField(verbose_name='Price')
     off = models.IntegerField(default=0)
     instock = models.IntegerField()
@@ -259,7 +331,7 @@ class KalaInstance(models.Model):
         verbose_name_plural = "Product Instances"
 
     def __str__(self):
-        return f"{self.id} : {self.saller}"
+        return f"{self.id}"
 
     def new_price(self):
         if self.off == 0: 
