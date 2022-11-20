@@ -53,12 +53,18 @@ class User(AbstractUser):
 class Department(models.Model):
     name = models.CharField(max_length=100, primary_key=True)
 
+    def __str__(self):
+        return self.name
+
 class Medic(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100, null=False, blank=False)
     surname = models.CharField(max_length=100, null=False, blank=False)
     image = models.ImageField(upload_to='static/images/medic/'.format(strftime('%Y%m%d-%H%M%S', gmtime())), default='no-image.jpg')
     department = models.ForeignKey(Department, on_delete=models.CASCADE, null=False, blank=False)
+
+    def __str__(self):
+        return self.name + " " + self.surname
 
 class Appoinment(models.Model):
     id = models.AutoField(primary_key=True)

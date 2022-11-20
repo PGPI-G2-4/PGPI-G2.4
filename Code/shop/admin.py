@@ -10,9 +10,16 @@ from shop.models import *
 
 admin.site.register(User)
 admin.site.register(Department)
-admin.site.register(Medic)
 admin.site.register(Appoinment)
 
+@admin.register(Medic)
+class MedicAdmin(admin.ModelAdmin):
+    list_display = ['full_name', 'department']
+    list_filter = ['department']
+
+    #Name and surname
+    def full_name(self, obj):
+        return obj.name + " " + obj.surname
 
 ########## OLD CODE ##########
 # @admin.register(User)
