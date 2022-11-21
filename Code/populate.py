@@ -70,4 +70,3 @@ for row in dataReader:
         appoinment.save()
 
 
-
