@@ -620,8 +620,8 @@ screen and (-ms-high-contrast:active) {
 .btn-primary.focus,
 .btn-primary:focus,
 .btn-primary:hover {
-	border-color: #3d464d;
-	background: #3d464d;
+	border-color: white;
+	background: #2D81AA;
 	color: #fff;
 	fill: #fff
 }
@@ -652,10 +652,11 @@ screen and (-ms-high-contrast:active) {
 .btn-primary,
 .btn-primary.disabled,
 .btn-primary:disabled {
-	border-color: #ffd333;
-	background: #ffd333;
-	color: #3d464d;
-	fill: #3d464d
+	border-color: #0E5B81;
+	background: #77C7EE;
+	color: black;
+	fill: #3d464d;
+	border-radius: 5px;
 }
 .btn-primary.disabled .fake-svg-icon,
 .btn-primary .fake-svg-icon,
@@ -3054,9 +3055,10 @@ screen and (-ms-high-contrast:active) {
 	width: 100%;
 	padding-top: 42px;
 	position: absolute;
-	background: #3d464d;
+	background: #2D81AA;
 	box-shadow: none;
-	border-radius: 2px
+	border-radius: 2px;
+	border-color: white;
 }
 .departments__links {
 	position: relative;
@@ -3069,8 +3071,9 @@ screen and (-ms-high-contrast:active) {
 	visibility: visible
 }
 .departments__links>li:hover>a {
-	background: #525d66
+	background: #1C5673
 }
+
 .departments__links>li>a {
 	font-weight: 400;
 	position: relative;
@@ -3109,8 +3112,10 @@ screen and (-ms-high-contrast:active) {
 	width: 649px
 }
 .departments__megamenu--xl {
-	width: 855px
+	width: 855px;
+	
 }
+
 .departments__links-wrapper {
 	overflow: hidden;
 	height: 0;
@@ -4150,7 +4155,7 @@ screen and (-ms-high-contrast:active) {
 }
 .nav-panel {
 	height: 54px;
-	background: #ffd333;
+	background: #77C7EE;
 	box-shadow: 0 1px rgba(0, 0, 0, .04), inset 0 -1px rgba(0, 0, 0, .04);
 	color: #3d464d
 }
@@ -9002,7 +9007,7 @@ screen and (-ms-high-contrast:active) {
 	background: #d1d1d1
 }
 .block-slideshow .owl-carousel .owl-dot.active {
-	background: #ffd333
+	background: #77C7EE
 }
 .block-slideshow .owl-carousel .owl-dot+.owl-dot {
 	margin-right: 6px

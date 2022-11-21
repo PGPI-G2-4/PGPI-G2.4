@@ -7,8 +7,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<meta name="format-detection" content="telephone=no">
-	<title>{% block title %} ابزارکده - {% endblock %}</title>
-	<link rel="icon" type="image/png" href='{% static "images/favicon.png" %}'>
+	<title>Cit@Medica</title>
+	<link rel="icon" type="image/png" href='{% static "images/icons8-pastillas-64.png" %}'>
 	<!-- css -->
 	<link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap-4.2.1/css/bootstrap.min.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'vendor/owl-carousel-2.3.4/assets/owl.carousel.min.css' %}">
@@ -417,16 +417,17 @@
 				<div class="site-header__middle container">
 					<div class="site-header__logo">
 						<a href="{% url 'index' %}">
-							<svg xmlns="http://www.w3.org/2000/svg" width="196px" height="26px">
-								<img src="{% static 'images/sitelogo/site_logo-removebg-preview.png' %}"  width="260" height="300" >
-							</svg>
+							
+								<img src="static/images/sitelogo/Logo.png" width="150" height="150">
+							
 						</a>
 					</div>
 					<div class="site-header__search">
 						<div class="search">
-							<form class="search__form"  method="GET" action="{% url 'search_kala' %}"  enctype="multipart/form-data" accept-charset = 'utf-8'>
+						<!-- <form class="search__form"  method="GET" action="{% url 'search_kala' %}"  enctype="multipart/form-data" accept-charset = 'utf-8'> -->
+							<form class="search__form"  method="GET" action="#"  enctype="multipart/form-data" accept-charset = 'utf-8'>
 								{% csrf_token %}
-								<input class="search__input" name="search" placeholder="جستجو از میان 10,000 محصول" aria-label="Site search" type="text" autocomplete="on">
+								<input class="search__input" name="search" placeholder="Búsqueda por médicos o departamentos" aria-label="Site search" type="text" autocomplete="on">
 								<button class="search__button" type="submit">
 									<svg width="20px" height="20px">
 										<use xlink:href="{% static 'images/sprite.svg' %}#search-20"></use>
@@ -437,8 +438,8 @@
 						</div>
 					</div>
 					<div class="site-header__phone">
-						<div class="site-header__phone-title">خدمات مشتری</div>
-						<div class="site-header__phone-number"><span class="ltr_text">(600) 160-0662</span></div>
+						<div class="site-header__phone-title">Universidad de Sevilla </div>
+						<div class="site-header__phone-number"><span class="ltr_text">Cit@Medica</span></div>
 					</div>
 				</div>
 				<div class="site-header__nav-panel">
@@ -452,74 +453,76 @@
 										<div class="departments__body">
 											<div class="departments__links-wrapper">
 												<ul class="departments__links">
-													<li class="departments__item"><a href="{% url 'CategoryListView' 'electronic-tools' %}">ابزار برقی <svg class="departments__link-arrow" width="6px" height="9px"><use xlink:href='{% static 'images/sprite.svg' %}#arrow-rounded-right-6x9'></use></svg></a>
+													<li class="departments__item"><a href="{% url 'CategoryListView' 'electronic-tools' %}">Alergología<svg class="departments__link-arrow" width="6px" height="9px"><use xlink:href='{% static 'images/sprite.svg' %}#arrow-rounded-right-6x9'></use></svg></a>
 														<div class="departments__megamenu departments__megamenu--xl">
 															<!-- .megamenu -->
-															<div class="megamenu megamenu--departments" style="background-image: url('static/images/megamenu/megamenu-1.jpg')">
+															<div class="megamenu megamenu--departments" ">
 																<div class="row">
 																	<div class="col-3">
 																		<ul class="megamenu__links megamenu__links--level--0">
-																			<li class="megamenu__item megamenu__item--with-submenu"><a href="#">ابزار برقی</a>
+																			<li class="megamenu__item megamenu__item--with-submenu"><a href="#">Médico D</a>
 																				<ul class="megamenu__links megamenu__links--level--1">
-																					<li class="megamenu__item"><a href="#">نگارندگان</a></li>
-																					<li class="megamenu__item"><a href="#">دریل ها</a></li>
-																					<li class="megamenu__item"><a href="#">آچار ها</a></li>
-																					<li class="megamenu__item"><a href="#">لوله کشی</a></li>
-																					<li class="megamenu__item"><a href="#">دیوار شکن</a></li>
-																					<li class="megamenu__item"><a href="#">ابزار پنوماتیک</a></li>
-																					<li class="megamenu__item"><a href="#">برش فرز</a></li>
+																					<li class="megamenu__item"><a href="#">d</a></li>
+																					<li class="megamenu__item"><a href="#">d</a></li>
+																					<li class="megamenu__item"><a href="#">d</a></li>
+																					<li class="megamenu__item"><a href="#">d</a></li>
+																					<li class="megamenu__item"><a href="#">d</a></li>
+																					<li class="megamenu__item"><a href="#">d</a></li>
+																					<li class="megamenu__item"><a href="#">d</a></li>
+																					
+									
 																				</ul>
 																			</li>
-																			<li class="megamenu__item"><a href="#">میزکار</a></li>
-																			<li class="megamenu__item"><a href="#">مطبوعات</a></li>
-																			<li class="megamenu__item"><a href="#">گردپاش</a></li>
-																			<li class="megamenu__item"><a href="#">ریدرها</a></li>
+																			<li class="megamenu__item"><a href="#">a</a></li>
+																			<li class="megamenu__item"><a href="#">a</a></li>
+																			<li class="megamenu__item"><a href="#">a</a></li>
+																			<li class="megamenu__item"><a href="#">a</a></li>
 																		</ul>
 																	</div>
 																	<div class="col-3">
 																		<ul class="megamenu__links megamenu__links--level--0">
-																			<li class="megamenu__item megamenu__item--with-submenu"><a href="#">ابزار دستی</a>
+																			<li class="megamenu__item megamenu__item--with-submenu"><a href="#">Médico C</a>
 																				<ul class="megamenu__links megamenu__links--level--1">
-																					<li class="megamenu__item"><a href="#">پیچ گوشتی ها</a></li>
-																					<li class="megamenu__item"><a href="#">اره دستی</a></li>
-																					<li class="megamenu__item"><a href="#">چاقو ها</a></li>
-																					<li class="megamenu__item"><a href="#">تبر ها</a></li>
-																					<li class="megamenu__item"><a href="#">ابزار چندکاره</a></li>
-																					<li class="megamenu__item"><a href="#">ابزار نقاشی</a></li>
+																					<li class="megamenu__item"><a href="#">c</a></li>
+																					<li class="megamenu__item"><a href="#">c</a></li>
+																					<li class="megamenu__item"><a href="#">c</a></li>
+																					<li class="megamenu__item"><a href="#">c</a></li>
+																					<li class="megamenu__item"><a href="#">c</a></li>
+																					<li class="megamenu__item"><a href="#">c</a></li>
 																				</ul>
 																			</li>
-																			<li class="megamenu__item megamenu__item--with-submenu"><a href="#">تجهیزات باغبانی</a>
+																			<li class="megamenu__item megamenu__item--with-submenu"><a href="#">Médico E</a>
 																				<ul class="megamenu__links megamenu__links--level--1">
-																					<li class="megamenu__item"><a href="#">پمپ های موتور</a></li>
-																					<li class="megamenu__item"><a href="#">اره برقی</a></li>
-																					<li class="megamenu__item"><a href="#">اره الکتریکی</a></li>
-																					<li class="megamenu__item"><a href="#">چمن زن</a></li>
-																				</ul>
-																			</li>
-																		</ul>
-																	</div>
-																	<div class="col-3">
-																		<ul class="megamenu__links megamenu__links--level--0">
-																			<li class="megamenu__item megamenu__item--with-submenu"><a href="#">ابزار ماشینی</a>
-																				<ul class="megamenu__links megamenu__links--level--1">
-																					<li class="megamenu__item"><a href="#">ابزار برش</a></li>
-																					<li class="megamenu__item"><a href="#">دمنده</a></li>
-																					<li class="megamenu__item"><a href="#">ماشین های تیز کننده</a></li>
-																					<li class="megamenu__item"><a href="#">لوله بر</a></li>
-																					<li class="megamenu__item"><a href="#">شکافنده</a></li>
-																					<li class="megamenu__item"><a href="#">ماشین آلات</a></li>
+																					<li class="megamenu__item"><a href="#">e</a></li>
+																					<li class="megamenu__item"><a href="#">e</a></li>
+																					<li class="megamenu__item"><a href="#">e</a></li>
+																					<li class="megamenu__item"><a href="#">e</a></li>
 																				</ul>
 																			</li>
 																		</ul>
 																	</div>
 																	<div class="col-3">
 																		<ul class="megamenu__links megamenu__links--level--0">
-																			<li class="megamenu__item megamenu__item--with-submenu"><a href="#">ابزار</a>
+																			<li class="megamenu__item megamenu__item--with-submenu"><a href="#">Médico B</a>
 																				<ul class="megamenu__links megamenu__links--level--1">
-																					<li class="megamenu__item"><a href="#">تجهیزات جوشکاری</a></li>
-																					<li class="megamenu__item"><a href="#">ابزار برقی</a></li>
-																					<li class="megamenu__item"><a href="#">ابزار دستی</a></li>
-																					<li class="megamenu__item"><a href="#">ابزار اندازه گیری</a></li>
+																					<li class="megamenu__item"><a href="#">b</a></li>
+																					<li class="megamenu__item"><a href="#">b</a></li>
+																					<li class="megamenu__item"><a href="#">b</a></li>
+																					<li class="megamenu__item"><a href="#">b</a></li>
+																					<li class="megamenu__item"><a href="#">b</a></li>
+																					<li class="megamenu__item"><a href="#">b</a></li>
+																				</ul>
+																			</li>
+																		</ul>
+																	</div>
+																	<div class="col-3">
+																		<ul class="megamenu__links megamenu__links--level--0">
+																			<li class="megamenu__item megamenu__item--with-submenu"><a href="#">Médico A</a>
+																				<ul class="megamenu__links megamenu__links--level--1">
+																					<li class="megamenu__item"><a href="#">a</a></li>
+																					<li class="megamenu__item"><a href="#">a</a></li>
+																					<li class="megamenu__item"><a href="#">a</a></li>
+																					<li class="megamenu__item"><a href="#">a</a></li>
 																				</ul>
 																			</li>
 																		</ul>
@@ -529,9 +532,9 @@
 															<!-- .megamenu / end -->
 														</div>
 													</li>
-													<li class="departments__item"><a href="{% url 'CategoryListView' 'manual-tools' %}">ابزار دستی <svg class="departments__link-arrow" width="6px" height="9px"><use xlink:href="{% static 'images/sprite.svg' %}#arrow-rounded-right-6x9"></use></svg></a>
+													<li class="departments__item"><a href="{% url 'CategoryListView' 'manual-tools' %}">Anestesiología <svg class="departments__link-arrow" width="6px" height="9px"><use xlink:href="{% static 'images/sprite.svg' %}#arrow-rounded-right-6x9"></use></svg></a>
 														<div class="departments__megamenu departments__megamenu--lg">
-															<!-- .megamenu -->
+															<!-- .megamenu 
 															<div class="megamenu megamenu--departments" style="background-image: url('static/images/megamenu/megamenu-2.jpg');">
 																<div class="row">
 																	<div class="col-4">
@@ -583,13 +586,13 @@
 																		</ul>
 																	</div>
 																</div>
-															</div>
+															</div> 
 															<!-- .megamenu / end -->
 														</div>
 													</li>
-													<li class="departments__item"><a href="{% url 'CategoryListView' 'electronic-tools' %}">ابزار ماشینی <svg class="departments__link-arrow" width="6px" height="9px"><use xlink:href="{% static 'images/sprite.svg' %}#arrow-rounded-right-6x9"></use></svg></a>
+													<li class="departments__item"><a href="{% url 'CategoryListView' 'electronic-tools' %}"> Cardiología<svg class="departments__link-arrow" width="6px" height="9px"><use xlink:href="{% static 'images/sprite.svg' %}#arrow-rounded-right-6x9"></use></svg></a>
 														<div class="departments__megamenu departments__megamenu--nl">
-															<!-- .megamenu -->
+															<!-- .megamenu 
 															<div class="megamenu megamenu--departments" style="background-image: url('static/images/megamenu/megamenu-3.jpg');">
 																<div class="row">
 																	<div class="col-6">
@@ -631,9 +634,9 @@
 															<!-- .megamenu / end -->
 														</div>
 													</li>
-													<li class="departments__item"><a href="{% url 'CategoryListView' 'electronic-tools' %}">لوازم ساختمان <svg class="departments__link-arrow" width="6px" height="9px"><use xlink:href="{% static 'images/sprite.svg' %}#arrow-rounded-right-6x9"></use></svg></a>
+													<li class="departments__item"><a href="{% url 'CategoryListView' 'electronic-tools' %}">Angiología<svg class="departments__link-arrow" width="6px" height="9px"><use xlink:href="{% static 'images/sprite.svg' %}#arrow-rounded-right-6x9"></use></svg></a>
 														<div class="departments__megamenu departments__megamenu--sm">
-															<!-- .megamenu -->
+															<!-- .megamenu 
 															<div class="megamenu megamenu--departments">
 																<div class="row">
 																	<div class="col-12">
@@ -663,45 +666,44 @@
 															<!-- .megamenu / end -->
 														</div>
 													</li>
-													<li class="departments__item departments__item--menu"><a href="{% url 'CategoryListView' 'electronic-tools' %}">الکتریکی <svg class="departments__link-arrow" width="6px" height="9px"><use xlink:href="{% static 'images/sprite.svg' %}#arrow-rounded-right-6x9"></use></svg></a>
+													<li class="departments__item departments__item--menu"><a href="{% url 'CategoryListView' 'electronic-tools' %}">Dermatología <svg class="departments__link-arrow" width="6px" height="9px"><use xlink:href="{% static 'images/sprite.svg' %}#arrow-rounded-right-6x9"></use></svg></a>
 														<div class="departments__menu">
-															<!-- .menu -->
+															<!-- .menu 
 															<ul class="menu menu--layout--classic">
 																<li><a href="#">تجهیزات لحیم کاری <svg class="menu__arrow" width="6px" height="9px"><use xlink:href="{% static 'images/sprite.svg' %}#arrow-rounded-right-6x9"></use></svg></a>
 																	<div class="menu__submenu">
-																		<!-- .menu -->
+																		
 																		<ul class="menu menu--layout--classic">
 																			<li><a href="#">ایستگاه لحیم کاری</a></li>
 																			<li><a href="#">خشک کن لحیم کاری</a></li>
 																			<li><a href="#">آهن لحیم کاری گاز</a></li>
 																			<li><a href="#">آهن لحیم کاری الکتریکی</a></li>
 																		</ul>
-																		<!-- .menu / end -->
+																		
 																	</div>
 																</li>
-																<li><a href="#">لامپ برقی</a></li>
-																<li><a href="#">باتری ها</a></li>
-																<li><a href="#">وسایل نور</a></li>
-																<li><a href="#">کف گرمایشی</a></li>
-																<li><a href="#">ژنراتور ها</a></li>
-																<li><a href="#">یو پی اس</a></li>
+																<li><a href="#">Dietética y Nutrición</a></li>
+																<li><a href="#">Endocrinología</a></li>
+																<li><a href="#">Odontología</a></li>
+																<li><a href="#">Ginecología</a></li>
+																<li><a href="#">Oncología<a></li>
 															</ul>
 															<!-- .menu / end -->
 														</div>
 													</li>
-													<li class="departments__item"><a href="#">ماشین آلات برقی</a></li>
-													<li class="departments__item"><a href="#">اندازه گیری</a></li>
-													<li class="departments__item"><a href="#">لباس کار</a></li>
-													<li class="departments__item"><a href="#">لوله کشی</a></li>
-													<li class="departments__item"><a href="#">ذخیره سازی و سازماندهی</a></li>
-													<li class="departments__item"><a href="#">جوشکاری و لحیم کاری</a></li>
+													<li class="departments__item"><a href="#">Dietética y Nutrición</a></li>
+													<li class="departments__item"><a href="#">Endocrinología</a></li>
+													<li class="departments__item"><a href="#">Odontología</a></li>
+													<li class="departments__item"><a href="#">Ginecología</a></li>
+													<li class="departments__item"><a href="#">Oncología</a></li>
+													
 												</ul>
 											</div>
 										</div>
 										<button class="departments__button">
 											<svg class="departments__button-icon" width="18px" height="14px">
 												<use xlink:href="{% static 'images/sprite.svg' %}#menu-18x14"></use>
-											</svg> دسته‌بندی‌ها
+											</svg> Departamentos
 											<svg class="departments__button-arrow" width="9px" height="6px">
 												<use xlink:href="{% static 'images/sprite.svg' %}#arrow-rounded-down-9x6"></use>
 											</svg>
@@ -713,7 +715,7 @@
 								<!-- .nav-links -->
 								<div class="nav-panel__nav-links nav-links">
 									<ul class="nav-links__list">
-										<li class="nav-links__item nav-links__item--with-submenu"><a href="{% url 'index' %}"><span>خانه <svg class="nav-links__arrow" width="9px" height="6px"><use xlink:href="/images/sprite.svg#arrow-rounded-down-9x6"></use></svg></span></a>
+										<li class="nav-links__item nav-links__item--with-submenu"><a href="{% url 'index' %}"><span>Menú Principal<svg class="nav-links__arrow" width="9px" height="6px"><use xlink:href="/images/sprite.svg#arrow-rounded-down-9x6"></use></svg></span></a> 
 											<div class="nav-links__menu">
 												<!-- .menu -->
 												
@@ -721,48 +723,62 @@
 											</div>
 										</li>
 										
-										<li class="nav-links__item nav-links__item--with-submenu"><a href="#"><span>حساب کاربری <svg class="nav-links__arrow" width="9px" height="6px"><use xlink:href="{% static 'images/sprite.svg' %}#arrow-rounded-down-9x6"></use></svg></span></a>
+										<li class="nav-links__item nav-links__item--with-submenu"><a href="#"><span>Mi cuenta <svg class="nav-links__arrow" width="9px" height="6px"><use xlink:href="{% static 'images/sprite.svg' %}#arrow-rounded-down-9x6"></use></svg></span></a>
 											<div class="nav-links__menu">
 												<!-- .menu -->
 												<ul class="menu menu--layout--classic">
 
 													{% if user.is_authenticated %}
-														<li><a href="{% url 'dashboard' %}">داشبورد</a></li>
-														<li><a href="{% url 'track_order' %}">پیگیری سفارش</a></li>
-														<li><a href="{% url 'change-password' %}">تغییر رمز عبور</a></li>
+													<!-- <li><a href="{% url 'dashboard' %}">Tablero de datos</a></li>
+														<li><a href="{% url 'track_order' %}">Seguimiento de pedido</a></li>
+														<li><a href="{% url 'change-password' %}">Cambiar contraseña</a></li> -->
+														<li><a href="#">Tablero de datos</a></li>
+														<li><a href="#">Seguimiento de pedido</a></li>
+														<li><a href="#">Cambiar contraseña</a></li>
 													{% else %}
-														<li><a href='{% url "register" %}'> ثبت نام</a></li>
-														<li><a href='{% url "login" %}'> ورود</a></li>
+													<!-- <li><a href='{% url "register" %}'> Registrarse</a></li>
+														<li><a href='{% url "login" %}'> Entrar</a></li> -->
+														<li><a href='#'> Registrarse</a></li>
+														<li><a href='#'> Entrar</a></li>
 													{% endif %}
 
 												</ul>
 												<!-- .menu / end -->
 											</div>
 										</li>
-										<li class="nav-links__item nav-links__item--with-submenu"><a href="{% url 'brands' %}"><span>برندها <svg class="nav-links__arrow" width="9px" height="6px"><use xlink:href="/images/sprite.svg#arrow-rounded-down-9x6"></use></svg></span></a>
+										<!-- 	<li class="nav-links__item nav-links__item--with-submenu"><a href="{% url 'brands' %}"><span>Departamentos<svg class="nav-links__arrow" width="9px" height="6px"><use xlink:href="/images/sprite.svg#arrow-rounded-down-9x6"></use></svg></span></a>
+										 -->
+										<li class="nav-links__item nav-links__item--with-submenu"><a href="#"><span>Departamentos<svg class="nav-links__arrow" width="9px" height="6px"><use xlink:href="/images/sprite.svg#arrow-rounded-down-9x6"></use></svg></span></a>
 										</li>
-										<li class="nav-links__item nav-links__item--with-submenu"><a href="{% url 'blog' %}"><span>بلاگ <svg class="nav-links__arrow" width="9px" height="6px"><use xlink:href="/images/sprite.svg#arrow-rounded-down-9x6"></use></svg></span></a>
-										</li>						
-										
-										<li class="nav-links__item nav-links__item--with-submenu"><a href="{% url 'about-us' %}"><span>درباره ما <svg class="nav-links__arrow" width="9px" height="6px"><use xlink:href="/images/sprite.svg#arrow-rounded-down-9x6"></use></svg></span></a>
+																
+										<!-- 	<li class="nav-links__item nav-links__item--with-submenu"><a href="{% url 'about-us' %}"><span>Sobre nosotros<svg class="nav-links__arrow" width="9px" height="6px"><use xlink:href="/images/sprite.svg#arrow-rounded-down-9x6"></use></svg></span></a>
+										 -->
+										<li class="nav-links__item nav-links__item--with-submenu"><a href="#"><span>Sobre nosotros<svg class="nav-links__arrow" width="9px" height="6px"><use xlink:href="/images/sprite.svg#arrow-rounded-down-9x6"></use></svg></span></a>
 											<div class="nav-links__menu">
 												<!-- .menu -->
 												
 												<!-- .menu / end -->
 											</div>
 										</li>
-										<li class="nav-links__item"><a href="{% url 'contact-us' %}" ><span>تماس با ما</span></a></li>
+										<!-- 										<li class="nav-links__item"><a href="{% url 'contact-us' %}" ><span>Contacta con nosotros</span></a></li>
+										 -->
+										<li class="nav-links__item"><a href="#" ><span>Contacta con nosotros</span></a></li>
 									</ul>
 								</div>
 								<!-- .nav-links / end -->
 								{% if not user.is_authenticated %}
+								<!-- <div class="nav-panel__indicators">
+									<div class="indicator">{% comment %}<div class="indicator indicator--trigger--click">{% endcomment %}<a href="{% url 'cart' %}" class="indicator__button"><span class="indicator__area"><svg width="20px" height="20px"><use xlink:href="{% static 'images/sprite.svg' %}#cart-20"></use></svg> <span class="indicator__value">{% if cart %}{{ cart.payed.count }}{% else %}0{% endif %}</span></span></a></div> -->
 									<div class="nav-panel__indicators">
-									<div class="indicator">{% comment %}<div class="indicator indicator--trigger--click">{% endcomment %}<a href="{% url 'cart' %}" class="indicator__button"><span class="indicator__area"><svg width="20px" height="20px"><use xlink:href="{% static 'images/sprite.svg' %}#cart-20"></use></svg> <span class="indicator__value">{% if cart %}{{ cart.payed.count }}{% else %}0{% endif %}</span></span></a></div>
+									<div class="indicator">{% comment %}<div class="indicator indicator--trigger--click">{% endcomment %}<a href="{#}" class="indicator__button"><span class="indicator__area"><svg width="20px" height="20px"><use xlink:href="{% static 'images/sprite.svg' %}#cart-20"></use></svg> <span class="indicator__value">{% if cart %}{{ cart.payed.count }}{% else %}0{% endif %}</span></span></a></div>
 								{% else %}
 									<div class="nav-panel__indicators">
-									<div class="indicator"><a href="{% url 'wishlist' %}" class="indicator__button"><span class="indicator__area"><svg width="20px" height="20px"><use xlink:href="{% static 'images/sprite.svg' %}#heart-20"></use></svg> <span class="indicator__value" >{% if wishlist %}{{ wishlist.count }}{% else %}0{% endif %}</span></span></a></div>
+									<!-- <div class="indicator"><a href="{% url 'wishlist' %}" class="indicator__button"><span class="indicator__area"><svg width="20px" height="20px"><use xlink:href="{% static 'images/sprite.svg' %}#heart-20"></use></svg> <span class="indicator__value" >{% if wishlist %}{{ wishlist.count }}{% else %}0{% endif %}</span></span></a></div>
 									<div class="indicator"><a href="{% url 'compare' %}" class="indicator__button"><span class="indicator__area"><svg width="20px" height="20px"><use xlink:href="{% static 'images/sprite.svg' %}#compare-16"></use></svg><span class="indicator__value" >{% if compare %}{{ compare.count }}{% else %}0{% endif %}</span></span></a></div>
-									<div class="indicator">{% comment %}<div class="indicator indicator--trigger--click">{% endcomment %}<a href="{% url 'cart' %}" class="indicator__button"><span class="indicator__area"><svg width="20px" height="20px"><use xlink:href="{% static 'images/sprite.svg' %}#cart-20"></use></svg> <span class="indicator__value">{% if cart %}{{ carts.count }}{% else %}0{% endif %}</span></span></a></div>
+									<div class="indicator">{% comment %}<div class="indicator indicator--trigger--click">{% endcomment %}<a href="{% url 'cart' %}" class="indicator__button"><span class="indicator__area"><svg width="20px" height="20px"><use xlink:href="{% static 'images/sprite.svg' %}#cart-20"></use></svg> <span class="indicator__value">{% if cart %}{{ carts.count }}{% else %}0{% endif %}</span></span></a></div> -->
+									<div class="indicator"><a href="#" class="indicator__button"><span class="indicator__area"><svg width="20px" height="20px"><use xlink:href="{% static 'images/sprite.svg' %}#heart-20"></use></svg> <span class="indicator__value" >{% if wishlist %}{{ wishlist.count }}{% else %}0{% endif %}</span></span></a></div>
+									<div class="indicator"><a href="#" class="indicator__button"><span class="indicator__area"><svg width="20px" height="20px"><use xlink:href="{% static 'images/sprite.svg' %}#compare-16"></use></svg><span class="indicator__value" >{% if compare %}{{ compare.count }}{% else %}0{% endif %}</span></span></a></div>
+									<div class="indicator">{% comment %}<div class="indicator indicator--trigger--click">{% endcomment %}<a href="#" class="indicator__button"><span class="indicator__area"><svg width="20px" height="20px"><use xlink:href="{% static 'images/sprite.svg' %}#cart-20"></use></svg> <span class="indicator__value">{% if cart %}{{ carts.count }}{% else %}0{% endif %}</span></span></a></div>
 										<div class="indicator__dropdown">
 											{% comment %}
 												<!-- .dropcart -->
@@ -873,24 +889,23 @@
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-5">
                         <div class="site-footer__widget footer-contacts">
-                            <h5 class="footer-contacts__title">ارتباط با ما</h5>
+                            <h5 class="footer-contacts__title">Contacta con nosotros</h5>
                             <ul class="footer-contacts__contacts">
-                                <li><i class="footer-contacts__icon fas fa-globe-americas"></i> تهران , میدان ونک </li>
-                                <li><i class="footer-contacts__icon far fa-envelope"></i>example@gmail.com</li>
-                                <li><i class="footer-contacts__icon fas fa-mobile-alt"></i> <span class="ltr_text">(800) 060-0730</span>, <span class="ltr_text">(800) 060-0730</span></li>
-                                <li><i class="footer-contacts__icon far fa-clock"></i> شنبه - پنجشنبه : 10 صبح - 7 عصر</li>
+                                <li><i class="footer-contacts__icon fas fa-globe-americas"></i> cit@medica.com</li>
+                                <li><i class="footer-contacts__icon far fa-envelope"></i>citamedicaus@gmail.com</li>
+                                <li><i class="footer-contacts__icon far fa-clock"></i> Lun - Dom abierto veinticuatro horas</li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-6 col-md-3 col-lg-2">
                         <div class="site-footer__widget footer-links">
-                            <h5 class="footer-links__title">اطلاعات</h5>
+                            <h5 class="footer-links__title">Información</h5>
                             <ul class="footer-links__list">
-                                <li class="footer-links__item"><a href="{% url 'about-us' %}" class="footer-links__link">درباره ما</a></li>
-								<li class="footer-links__item"><a href="{% url 'terms_and_conditions' %}" class="footer-links__link">قوانین و مقررات</a></li>
-								<li class="footer-links__item"><a href="{% url 'faq' %}" class="footer-links__link">سوالات متداول</a></li>
+                                <li class="footer-links__item"><a href="{% url 'about-us' %}" class="footer-links__link">Sobre nosotros</a></li>
+                                <li class="footer-links__item"><a href="{#}" class="footer-links__link">Términos y condiciones</a></li>
+								<!--<li class="footer-links__item"><a href="{% url 'terms_and_conditions' %}" class="footer-links__link">Términos y condiciones</a></li>
                                 <!--<li class="footer-links__item"><a href="#" class="footer-links__link">حریم خصوصی</a></li>-->
-                                <li class="footer-links__item"><a href="{% url 'contact-us'%}" class="footer-links__link">تماس با ما</a></li>
+                                <li class="footer-links__item"><a href="{% url 'contact-us'%}" class="footer-links__link">Contacta con nosotros</a></li>
 								
                             </ul>
                         </div>
@@ -903,30 +918,21 @@
                     </div>
                     <div class="col-12 col-md-12 col-lg-4">
                         <div class="site-footer__widget footer-newsletter">
-                            <h5 class="footer-newsletter__title">خبرنامه</h5>
-                            <div class="footer-newsletter__text">در خبرنامه ما عضو شوید و از تخفیف ها مطلع شوید</div>
-                            <form action="#" class="footer-newsletter__form">
-                                <label class="sr-only" for="footer-newsletter-address">آدرس ایمیل</label>
-                                <input type="text" class="footer-newsletter__form-input form-control" id="footer-newsletter-address" placeholder="... آدرس ایمیل" dir="ltr">
-                                <button class="footer-newsletter__form-button btn btn-primary">اشتراک</button>
-                            </form>
-                            <div class="footer-newsletter__text footer-newsletter__text--social">ما را در شبکه های اجتماعی دنبال کنید</div>
-                            <ul class="footer-newsletter__social-links">
-                                <li class="footer-newsletter__social-link footer-newsletter__social-link--facebook"><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                                <li class="footer-newsletter__social-link footer-newsletter__social-link--twitter"><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
-                                <li class="footer-newsletter__social-link footer-newsletter__social-link--youtube"><a href="#" target="_blank"><i class="fab fa-youtube"></i></a></li>
-                                <li class="footer-newsletter__social-link footer-newsletter__social-link--instagram"><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
-                                <li class="footer-newsletter__social-link footer-newsletter__social-link--rss"><a href="#" target="_blank"><i class="fas fa-rss"></i></a></li>
-                            </ul>
+                            <h5 class="footer-newsletter__title">Componentes del grupo</h5>
+                            <ul class="footer-links__list">
+                            <li class="footer-links__item"><a href="#" class="footer-links__link">José Mª García Quijada</a></li>
+								<li class="footer-links__item"><a href="#" class="footer-links__link">Miguel Gaviro Martínez</a></li>
+								<li class="footer-links__item"><a href="#" class="footer-links__link">Diego Jesús Díaz López </a></li>
+                                <!--<li class="footer-links__item"><a href="#" class="footer-links__link">حریم خصوصی</a></li>-->
+                                <li class="footer-links__item"><a href="#" class="footer-links__link">Juan Antonio Mena Vargas</a></li>
+                                <li class="footer-links__item"><a href="#" class="footer-links__link">Eloy Moreno Dominguez</a></li>
+                                </ul>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="site-footer__bottom">
-                <div class="site-footer__copyright">
-					<a href="https://github.com/Amirhoseindzh" >
-						<h6>Developed By : Amirhossein Dezhabdolahi</h6></a>
-					</div>
+                
                 <div class="site-footer__payments"><img src='{% static "images/payments.png" %}' alt=""></div>
             </div>
         </div>
