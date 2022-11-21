@@ -2,7 +2,7 @@ from django.shortcuts import render , redirect , get_object_or_404
 from django.views.generic.edit import UpdateView 
 from django.views.generic import DetailView , ListView 
 from .models import *
-from .forms import ProfileForm , PriceFilter , checkoutForm 
+from .forms import PriceFilter
 from django.http import  HttpResponse , HttpResponseRedirect
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -112,15 +112,15 @@ def activate(request, uidb64, token):
         return redirect('register')
 
 
-
-class Profile(LoginRequiredMixin , UpdateView):
-    model = User
-    template_name = 'account-profile.html'
-    form_class = ProfileForm
-    success_url = reverse_lazy('profile')
-    
-    def get_object(self):
-        return User.objects.get(pk=self.request.user.pk)
+#TODO: User registration
+# class Profile(LoginRequiredMixin , UpdateView):
+#     model = User
+#     template_name = 'account-profile.html'
+#     form_class = ProfileForm
+#     success_url = reverse_lazy('profile')
+#
+#     def get_object(self):
+#         return User.objects.get(pk=self.request.user.pk)
 
 
 class KalaListView(ListView):
@@ -727,71 +727,71 @@ def contact_us(request):
         }
     return render(request, 'contact-us.html', context)
 
-
-@login_required(login_url="login")
-def checkout(request):
-    usr = User.objects.get(username= request.user)
-    carts = Cart.objects.filter(username = request.user, payed = 'F')
-    tPrice=0
-    for i in carts:
-        tPrice += i.total()
-    final = 0
-    for i in carts:
-        final += i.total_price()
-    CFinal = 0
-    for i in carts:
-        CFinal += i.finally_price()
-    
-    tax = final - tPrice  
-    coupon = CFinal - final  
-    sendCost = 5000 * len(carts)
-    toPay = CFinal + tax + sendCost
-
-    if request.method == 'POST':
-        form = checkoutForm(request.POST)
-        if form.is_valid():
-            company = form.cleaned_data['company']
-            address = form.cleaned_data['address']
-            city = form.cleaned_data['city']
-            postcode = form.cleaned_data['postcode']
-            state = form.cleaned_data['state'] 
-            description = form.cleaned_data['desc']  
-            sell = Salled.objects.create(user= request.user, company= company,
-                                        address = address, zip_code= postcode,
-                                        state= States.objects.get(id = state),
-                                        city= city, total_price= CFinal, send_price= sendCost, tax= tax,
-                                        total= toPay, desc= description)
-                
-            for c in carts:
-                sell.products.add(c)
-                instance = c.saller
-                instance.instock -= 1
-                instance.save()
-                c.payed = 'T'
-                c.save()
-
-            sell.save()
-            return HttpResponseRedirect(reverse('cart'))
-        
-    else:
-        
-        form = checkoutForm(initial={'address' : usr.address, 'city' : usr.city, 'state' : usr.state, 'postcode' : usr.postcode})
-    
-    context = {
-        'form' : form,
-        'state' : States.objects.all(),
-        'not_authenticated' : False,
-        'carts' : carts,
-        'totalPrice': tPrice,
-        'finalPrice' : final,
-        'tax' : tax,
-        'coupon': coupon,
-        'sendCost' : sendCost,
-        'toPay': toPay,
-        'is_authenticated' : True,
-        'usr' : usr,
-    }
-    return render(request, 'checkout.html', context)
+# TODO: Checkout form (Its implemented with login but we support anonymous checkout)
+# @login_required(login_url="login")
+# def checkout(request):
+#     usr = User.objects.get(username= request.user)
+#     carts = Cart.objects.filter(username = request.user, payed = 'F')
+#     tPrice=0
+#     for i in carts:
+#         tPrice += i.total()
+#     final = 0
+#     for i in carts:
+#         final += i.total_price()
+#     CFinal = 0
+#     for i in carts:
+#         CFinal += i.finally_price()
+#
+#     tax = final - tPrice
+#     coupon = CFinal - final
+#     sendCost = 5000 * len(carts)
+#     toPay = CFinal + tax + sendCost
+#
+#     if request.method == 'POST':
+#         form = checkoutForm(request.POST)
+#         if form.is_valid():
+#             company = form.cleaned_data['company']
+#             address = form.cleaned_data['address']
+#             city = form.cleaned_data['city']
+#             postcode = form.cleaned_data['postcode']
+#             state = form.cleaned_data['state']
+#             description = form.cleaned_data['desc']
+#             sell = Salled.objects.create(user= request.user, company= company,
+#                                         address = address, zip_code= postcode,
+#                                         state= States.objects.get(id = state),
+#                                         city= city, total_price= CFinal, send_price= sendCost, tax= tax,
+#                                         total= toPay, desc= description)
+#
+#             for c in carts:
+#                 sell.products.add(c)
+#                 instance = c.saller
+#                 instance.instock -= 1
+#                 instance.save()
+#                 c.payed = 'T'
+#                 c.save()
+#
+#             sell.save()
+#             return HttpResponseRedirect(reverse('cart'))
+#
+#     else:
+#
+#         form = checkoutForm(initial={'address' : usr.address, 'city' : usr.city, 'state' : usr.state, 'postcode' : usr.postcode})
+#
+#     context = {
+#         'form' : form,
+#         'state' : States.objects.all(),
+#         'not_authenticated' : False,
+#         'carts' : carts,
+#         'totalPrice': tPrice,
+#         'finalPrice' : final,
+#         'tax' : tax,
+#         'coupon': coupon,
+#         'sendCost' : sendCost,
+#         'toPay': toPay,
+#         'is_authenticated' : True,
+#         'usr' : usr,
+#     }
+#     return render(request, 'checkout.html', context)
 
 
 

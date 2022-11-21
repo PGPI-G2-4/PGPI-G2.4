@@ -271,11 +271,6 @@
 													<input type="text" name="Material" value="{{ material.id }}"> <span>{{ k.material.name }}</span>
 													{% endfor %}
 												</label>
-												<label>
-													{% for saller in k.kalainstance.all %}
-													<input type="text" name="Saller" value="{{ saller.id }}"> <span>{{ saller.name }}</span>
-													{% endfor %}
-												</label>
 												<li>سرعت: 750 RPM</li>
 												<li>منبع تغزیه: برق</li>
 												<li>نوع باتری: لیتیوم</li>
@@ -471,9 +466,6 @@
 											<label>
 												<input type="text" name="Material" value="{{ k.material_id }}"> <span>{{ k.material }}</span>
 											</label>
-											<label>
-												<input type="text" name="Saller" value="{{ k.saller_id }}"> <span>{{ k.saller }}</span>
-											</label>
 
 											<li>سرعت: 750 RPM</li>
 											<li>منبع تغزیه: برق</li>
@@ -484,18 +476,9 @@
 									</div>
 									<div class="product-card__actions">
 										<div class="product-card__availability">موجودی: <span class="text-success">موجود در انبار</span></div>
-										{% if k.saller.instock == 0 %}
-										{% else %}
-										<div class="product-card__prices">{% if k.saller.off == 0 %}<span class="new-price">{{ k.saller.new_price }}</span>{% else %}<span class="product-card__new-price">{{ k.saller.new_price }} تومان</span>{% endif %}{% if k.saller.off == 0 %}{% else %}<span  class="product-card__old-price">{{ k.saller.price }} تومان</span>{% endif %}</div>
-										{% endif %}
 										<div class="product-card__buttons">
 											
 											{% if user.is_authenticated %}
-												{% if k.saller.instock != 0 %}
-												<button class="btn btn-primary product-card__addtocart" type="submit" id="button-cart" name='addCart'>افزودن به سبد</button>
-												{% else %}
-												<button type="submit" class="btn btn-danger btn-lg" disabled>ناموجود</button>
-												{% endif %}
 											{% else %}
 											<a href={% url 'login' %}> <button type="button" id="Login" class="btn btn-primary btn-lg">افزودن به سبد</button></a>
                 							{% endif %}
@@ -633,11 +616,7 @@
 												<label>
 													<input type="text" name="Material" value="{{ k.material_id }}"> <span>{{ k.material }}</span>
 												</label>
-												<label>
-													<input type="text" name="Saller" value="{{ k.saller_id }}"> <span>{{ k.saller }}</span>
-												</label>
-												
-												
+
 											<li>منبع تغزیه: برق</li>
 											<li>نوع باتری: لیتیوم</li>
 											<li>ظرفیت باتری: 2 ساعت</li>
@@ -646,18 +625,9 @@
 									</div>
 									<div class="product-card__actions">
 										<div class="product-card__availability">موجودی: <span class="text-success">موجود در انبار</span></div>
-										{% if k.saller.instock == 0 %}
-										{% else %}
-										<div class="product-card__prices">{% if k.saller.off == 0 %}<span class="new-price">{{ k.saller.new_price }}</span>{% else %}<span class="product-card__new-price">{{ k.saller.new_price }} تومان</span>{% endif %}{% if k.saller.off == 0 %}{% else %}<span  class="product-card__old-price">{{ k.saller.price }} تومان</span>{% endif %}</div>
-										{% endif %}
-										
+
 										<div class="product-card__buttons">
 											{% if user.is_authenticated %}
-												{% if k.saller.instock != 0 %}
-												<button class="btn btn-primary product-card__addtocart" type="submit" id="button-cart" name='addCart'>افزودن به سبد</button>
-												{% else %}
-												<button type="submit" class="btn btn-danger btn-lg" disabled>ناموجود</button>
-												{% endif %}
 											{% else %}
 											<a href={% url 'login' %}> <button type="button" id="Login" class="btn btn-primary btn-lg">افزودن به سبد</button></a>
                 							{% endif %}
