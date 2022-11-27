@@ -4694,7 +4694,7 @@ screen and (-ms-high-contrast:active) {
 	}
 }
 .about-us__image {
-	background-image: url(../images/aboutus.jpg);
+	background-image: url(../images/1920x500.jpg);
 	background-size: cover;
 	background-position: bottom;
 	height: 500px
@@ -4754,7 +4754,7 @@ screen and (-ms-high-contrast:active) {
 	color: #ccc
 }
 .teammates .owl-carousel .owl-dot.active {
-	color: #ffd333
+	color: #77C7EE
 }
 .teammate__avatar img {
 	max-width: 100%;
