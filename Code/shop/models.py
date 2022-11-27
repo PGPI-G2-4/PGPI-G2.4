@@ -21,7 +21,6 @@ class User(AbstractUser):
     # Contact Info
     id = models.AutoField(primary_key=True)
     email = models.EmailField(_('email address'), unique=True, max_length=30, blank=True, null=True)
-    username = models.CharField(max_length=30, blank=False, null=False)
     password = models.CharField(max_length=255)
 
     # Personal Info
@@ -37,7 +36,7 @@ class User(AbstractUser):
 
     # Social Info
     is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
