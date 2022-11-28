@@ -715,70 +715,36 @@
 								<!-- .nav-links -->
 								<div class="nav-panel__nav-links nav-links">
 									<ul class="nav-links__list">
-										<li class="nav-links__item nav-links__item--with-submenu"><a href="{% url 'index' %}"><span>Menú Principal<svg class="nav-links__arrow" width="9px" height="6px"><use xlink:href="/images/sprite.svg#arrow-rounded-down-9x6"></use></svg></span></a> 
-											<div class="nav-links__menu">
-												<!-- .menu -->
-												
-												<!-- .menu / end -->
-											</div>
+										
+										<li class="nav-links__item nav-links__item--with-submenu"><a href="{% url 'index' %}"><span>Menú principal<svg class="nav-links__arrow" width="9px" height="6px"><use xlink:href="/images/sprite.svg#arrow-rounded-down-9x6"></use></svg></span></a>
+										 
 										</li>
 										
-										<li class="nav-links__item nav-links__item--with-submenu"><a href="#"><span>Mi cuenta <svg class="nav-links__arrow" width="9px" height="6px"><use xlink:href="{% static 'images/sprite.svg' %}#arrow-rounded-down-9x6"></use></svg></span></a>
-											<div class="nav-links__menu">
-												<!-- .menu -->
-												<ul class="menu menu--layout--classic">
-
-													{% if user.is_authenticated %}
-													<!-- <li><a href="{% url 'dashboard' %}">Tablero de datos</a></li>
-														<li><a href="{% url 'track_order' %}">Seguimiento de pedido</a></li>
-														<li><a href="{% url 'change-password' %}">Cambiar contraseña</a></li> -->
-														<li><a href="#">Tablero de datos</a></li>
-														<li><a href="#">Seguimiento de pedido</a></li>
-														<li><a href="#">Cambiar contraseña</a></li>
-													{% else %}
-													<!-- <li><a href='{% url "register" %}'> Registrarse</a></li>
-														<li><a href='{% url "login" %}'> Entrar</a></li> -->
-														<li><a href='#'> Registrarse</a></li>
-														<li><a href='#'> Entrar</a></li>
-													{% endif %}
-
-												</ul>
-												<!-- .menu / end -->
-											</div>
+										<li class="nav-links__item nav-links__item--with-submenu"><a href="{% url 'track_order' %}"><span>Información de mi pedido<svg class="nav-links__arrow" width="9px" height="6px"><use xlink:href="/images/sprite.svg#arrow-rounded-down-9x6"></use></svg></span></a>
+										 
 										</li>
-										<!-- 	<li class="nav-links__item nav-links__item--with-submenu"><a href="{% url 'brands' %}"><span>Departamentos<svg class="nav-links__arrow" width="9px" height="6px"><use xlink:href="/images/sprite.svg#arrow-rounded-down-9x6"></use></svg></span></a>
-										 -->
-										<li class="nav-links__item nav-links__item--with-submenu"><a href="#"><span>Departamentos<svg class="nav-links__arrow" width="9px" height="6px"><use xlink:href="/images/sprite.svg#arrow-rounded-down-9x6"></use></svg></span></a>
+										<li class="nav-links__item nav-links__item--with-submenu"><a href="{% url 'brands' %}"><span>Departamentos<svg class="nav-links__arrow" width="9px" height="6px"><use xlink:href="/images/sprite.svg#arrow-rounded-down-9x6"></use></svg></span></a>
+										 
 										</li>
 																
-										<!-- 	<li class="nav-links__item nav-links__item--with-submenu"><a href="{% url 'about-us' %}"><span>Sobre nosotros<svg class="nav-links__arrow" width="9px" height="6px"><use xlink:href="/images/sprite.svg#arrow-rounded-down-9x6"></use></svg></span></a>
-										 -->
-										<li class="nav-links__item nav-links__item--with-submenu"><a href="#"><span>Sobre nosotros<svg class="nav-links__arrow" width="9px" height="6px"><use xlink:href="/images/sprite.svg#arrow-rounded-down-9x6"></use></svg></span></a>
+										 	<li class="nav-links__item nav-links__item--with-submenu"><a href="{% url 'about-us' %}"><span>Sobre nosotros<svg class="nav-links__arrow" width="9px" height="6px"><use xlink:href="/images/sprite.svg#arrow-rounded-down-9x6"></use></svg></span></a>
+										 
 											<div class="nav-links__menu">
 												<!-- .menu -->
 												
 												<!-- .menu / end -->
 											</div>
 										</li>
-										<!-- 										<li class="nav-links__item"><a href="{% url 'contact-us' %}" ><span>Contacta con nosotros</span></a></li>
-										 -->
-										<li class="nav-links__item"><a href="#" ><span>Contacta con nosotros</span></a></li>
+										 
+										
 									</ul>
 								</div>
 								<!-- .nav-links / end -->
-								{% if not user.is_authenticated %}
-								<!-- <div class="nav-panel__indicators">
-									<div class="indicator">{% comment %}<div class="indicator indicator--trigger--click">{% endcomment %}<a href="{% url 'cart' %}" class="indicator__button"><span class="indicator__area"><svg width="20px" height="20px"><use xlink:href="{% static 'images/sprite.svg' %}#cart-20"></use></svg> <span class="indicator__value">{% if cart %}{{ cart.payed.count }}{% else %}0{% endif %}</span></span></a></div> -->
+								
 									<div class="nav-panel__indicators">
-									<div class="indicator">{% comment %}<div class="indicator indicator--trigger--click">{% endcomment %}<a href="{#}" class="indicator__button"><span class="indicator__area"><svg width="20px" height="20px"><use xlink:href="{% static 'images/sprite.svg' %}#cart-20"></use></svg> <span class="indicator__value">{% if cart %}{{ cart.payed.count }}{% else %}0{% endif %}</span></span></a></div>
-								{% else %}
-									<div class="nav-panel__indicators">
-									<!-- <div class="indicator"><a href="{% url 'wishlist' %}" class="indicator__button"><span class="indicator__area"><svg width="20px" height="20px"><use xlink:href="{% static 'images/sprite.svg' %}#heart-20"></use></svg> <span class="indicator__value" >{% if wishlist %}{{ wishlist.count }}{% else %}0{% endif %}</span></span></a></div>
-									<div class="indicator"><a href="{% url 'compare' %}" class="indicator__button"><span class="indicator__area"><svg width="20px" height="20px"><use xlink:href="{% static 'images/sprite.svg' %}#compare-16"></use></svg><span class="indicator__value" >{% if compare %}{{ compare.count }}{% else %}0{% endif %}</span></span></a></div>
-									<div class="indicator">{% comment %}<div class="indicator indicator--trigger--click">{% endcomment %}<a href="{% url 'cart' %}" class="indicator__button"><span class="indicator__area"><svg width="20px" height="20px"><use xlink:href="{% static 'images/sprite.svg' %}#cart-20"></use></svg> <span class="indicator__value">{% if cart %}{{ carts.count }}{% else %}0{% endif %}</span></span></a></div> -->
-									<div class="indicator"><a href="#" class="indicator__button"><span class="indicator__area"><svg width="20px" height="20px"><use xlink:href="{% static 'images/sprite.svg' %}#heart-20"></use></svg> <span class="indicator__value" >{% if wishlist %}{{ wishlist.count }}{% else %}0{% endif %}</span></span></a></div>
-									<div class="indicator"><a href="#" class="indicator__button"><span class="indicator__area"><svg width="20px" height="20px"><use xlink:href="{% static 'images/sprite.svg' %}#compare-16"></use></svg><span class="indicator__value" >{% if compare %}{{ compare.count }}{% else %}0{% endif %}</span></span></a></div>
-									<div class="indicator">{% comment %}<div class="indicator indicator--trigger--click">{% endcomment %}<a href="#" class="indicator__button"><span class="indicator__area"><svg width="20px" height="20px"><use xlink:href="{% static 'images/sprite.svg' %}#cart-20"></use></svg> <span class="indicator__value">{% if cart %}{{ carts.count }}{% else %}0{% endif %}</span></span></a></div>
+									
+									<div class="indicator">{% comment %}<div class="indicator indicator--trigger--click">{% endcomment %}<a href="{% url 'cart' %}" class="indicator__button"><span class="indicator__area"><svg width="20px" height="20px"><use xlink:href="{% static 'images/sprite.svg' %}#cart-20"></use></svg> <span class="indicator__value">{% if cart %}{{ carts.count }}{% else %}0{% endif %}</span></span></a></div> 
+									
 										<div class="indicator__dropdown">
 											{% comment %}
 												<!-- .dropcart -->
@@ -862,7 +828,7 @@
 											
 										</div>
 									</div>
-								{% endif %}
+								
 							</div>
 						</div>
 					</div>
