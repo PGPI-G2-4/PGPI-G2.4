@@ -1,4 +1,7 @@
+from datetime import timezone
+
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -18,10 +21,7 @@ class Medic(models.Model):
     name = models.CharField(max_length=255)
     surname = models.CharField(max_length=255)
     image = models.ImageField(upload_to="images/", blank=True, null=True, default="images/default.jpg")
-
-    department = TreeForeignKey(
-        Department, on_delete=models.CASCADE, related_name="medics"
-    )
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name="medics")
 
     def __str__(self):
         return self.name
@@ -29,17 +29,27 @@ class Medic(models.Model):
 class Appointment(models.Model):
     id = models.AutoField(primary_key=True)
     date_time = models.DateTimeField(_("Date and time of appointment"))
+    client_name = models.CharField(max_length=255)
+    client_surname = models.CharField(max_length=255)
+    client_email = models.EmailField(_("email address"), unique=True)
+    price = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
     medic = models.ForeignKey(Medic, on_delete=models.CASCADE, related_name="appointments")
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="appointments")
+
+    unique_together = ("date_time", "medic")
+    unique_together = ("medic.department", "client_email")
+
+    def clean(self):
+        if self.date_time < timezone.now() + timezone.timedelta(days=3):
+            raise ValidationError(_("Date must be 3 days into the future"))
 
     def __str__(self):
-        return f"{self.medic} - {self.date} - {self.time}"
+        return f"{self.medic} - {self.date} - {self.time} | {self.client_name} {self.client_surname}"
 
     def get_absolute_url(self):
         return reverse("appointment-detail", kwargs={"pk": self.pk})
 
     class Meta:
-        ordering = ["date", "time"]
+        ordering = ["date_time"]
 
 
 # OLD CODE #####################################################################

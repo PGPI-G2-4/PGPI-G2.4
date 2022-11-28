@@ -58,7 +58,7 @@ class Customer(AbstractBaseUser, PermissionsMixin):
         MALE = "M", "Male"
         FEMALE = "F", "Female"
 
-    id = models.autoField(primary_key=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(_("email address"), unique=True)
     first_name = models.CharField(_("first name"), max_length=30, blank=True)
     last_name = models.CharField(_("last name"), max_length=150, blank=True)
@@ -78,14 +78,14 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     objects = CustomAccountManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["name"]
+    REQUIRED_FIELDS = ["first_name", "last_name"]
 
     class Meta:
         verbose_name = "Accounts"
         verbose_name_plural = "Accounts"
 
     def __str__(self):
-        return self.name
+        return self.first_name + " " + self.last_name
 
 
 # class Address(models.Model):

@@ -12,8 +12,8 @@ from ecommerce.apps.catalogue.models import Product
 from ecommerce.apps.orders.models import Order
 from ecommerce.apps.orders.views import user_orders
 
-from .forms import RegistrationForm, UserAddressForm, UserEditForm
-from .models import Address, Customer
+from .forms import RegistrationForm, UserEditForm
+from .models import Customer
 from .tokens import account_activation_token
 
 

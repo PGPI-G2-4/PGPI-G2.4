@@ -4,7 +4,6 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
-from ecommerce.apps.account.models import Address
 from ecommerce.apps.basket.basket import Basket
 from ecommerce.apps.orders.models import Order, OrderItem
 
@@ -46,15 +45,8 @@ def delivery_address(request):
         messages.success(request, "Please select delivery option")
         return HttpResponseRedirect(request.META["HTTP_REFERER"])
 
-    addresses = Address.objects.filter(customer=request.user).order_by("-default")
 
-    if "address" not in request.session:
-        session["address"] = {"address_id": str(addresses[0].id)}
-    else:
-        session["address"]["address_id"] = str(addresses[0].id)
-        session.modified = True
-
-    return render(request, "checkout/delivery_address.html", {"addresses": addresses})
+    return render(request, "checkout/delivery_address.html")
 
 
 @login_required

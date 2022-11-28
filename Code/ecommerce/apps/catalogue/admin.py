@@ -9,8 +9,14 @@ from .models import (
     ProductSpecification,
     ProductSpecificationValue,
     ProductType,
+    Department,
+    Medic,
+    Appointment,
 )
 
+admin.site.register(Department)
+admin.site.register(Medic)
+admin.site.register(Appointment)
 admin.site.register(Category, MPTTModelAdmin)
 
 
