@@ -74,7 +74,7 @@ def account_register(request):
             user = registerForm.save(commit=False)
             user.email = registerForm.cleaned_data["email"]
             user.set_password(registerForm.cleaned_data["password"])
-            user.is_active = False
+            user.is_active = True
             user.save()
             current_site = get_current_site(request)
             subject = "Activate your Account"
@@ -88,7 +88,7 @@ def account_register(request):
                 },
             )
             user.email_user(subject=subject, message=message)
-            return render(request, "account/registration/register_email_confirm.html", {"form": registerForm})
+            return redirect("/")
         else:
             return HttpResponse("Error handler content", status=400)
     else:

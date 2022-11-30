@@ -79,6 +79,16 @@
                     </span>
                   </a>
                   <div class="dropdown-menu rounded-0" aria-labelledby="navbarDropdown">
+                    {% if user.is_authenticated %}
+                    {% else %}
+                    <div class="card border-0">
+                      <div class="card-body">
+                        <h6 class="card-title">Registrarse</h6>
+                        <ul class="list-group list-group-flush dropdown-account-link">
+                          <a href="{% url "account:register" %}" class="text-reset small list-group-item p-0 pb-1 border-0 dropdown-account-link">Crear una cuenta</a>
+                        </ul>
+                      </div>
+                    {% endif %}
                     <div class="card border-0">
                       <div class="card-body">
                         <h6 class="card-title">MI cuenta</h6>
