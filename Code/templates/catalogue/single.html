@@ -32,9 +32,11 @@
           </div>
         </div>
         <hr>
-        <button type="button" id="add-button" value="{{product.id}}" class="btn btn-success fw500">Add to
-          basket</button>
-        <a href="{% url "account:user_wishlist" product.id  %}" class="btn btn-light fw500" role="button" aria-disabled="true">Add to Wish List</a>
+        <p>¿Cree que necesita contratar los servicios de <b>{{ product.title }}</b> ?</p>
+
+        <button type="button" id="add-button" value="{{product.id}}" class="btn btn-success fw500">Añadir al carrito</button>
+        
+        <!--<a href="{% url "account:user_wishlist" product.id  %}" class="btn btn-dark fw500" role="button" aria-disabled="true">Add to Wish List</a>-->
       </div>
     </div>
     <div class="col-md-7 col-lg-7 p-0">
