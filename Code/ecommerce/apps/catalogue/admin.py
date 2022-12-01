@@ -9,9 +9,11 @@ from .models import (
     ProductSpecification,
     ProductSpecificationValue,
     ProductType,
+    Event,
 )
 
 admin.site.register(Category, MPTTModelAdmin)
+
 
 
 class ProductSpecificationInline(admin.TabularInline):
