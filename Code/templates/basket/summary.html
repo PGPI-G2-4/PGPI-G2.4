@@ -53,7 +53,7 @@
     <div class="col-md-7 col-lg-8 p-0">
       {% for item in basket %}
       {% with product=item.product %}
-      <div class="card mb-3 border-0 product-item" data-index="{{product.medic.id}}">
+      <div class="card mb-3 border-0 product-item" data-index="{{product.id}}">
         <div class="row g-0">
           <div class="col-md-2 d-none d-md-block">
             <img class="img-fluid" alt="Responsive image" src="{{ product.medic.image.url }}" alt="{{ product.medic.name}}">
@@ -64,7 +64,7 @@
                 <p class="card-text">{{product.medic.name}} {{ product.medic.surname }}</p>
                   <p class="card-text pb-3 text-danger">{{product.medic.department}}</p>
               </a>
-              <input type="datetime-local" id="meeting-time" name="meeting-time" value="{{ product.date_time|date:'Y-m-d'}}T{{ product.date_time|time:'H:i:s' }}">
+              <input type="datetime-local" id="meeting-time{{ product.id }}" name="meeting-time" value="{{ product.date_time|date:'Y-m-d'}}T{{ product.date_time|time:'H:i' }}">
               <a type="button" id="update-button" data-index="{{product.id}}"
                 class="update-button text-decoration-none small ps-3"> Update</a>
               <a type="button" id="delete-button" data-index="{{product.id}}"
@@ -83,18 +83,18 @@
 <script>
   // Delete Item
   $(document).on("click", ".delete-button", function (e) {
+      var appointment_id = $(this).data("index");
     e.preventDefault();
-    var prodid = $(this).attr("data-index");
     $.ajax({
       type: "POST",
       url: '{% url "basket:basket_delete" %}',
       data: {
-        productid: prodid,
+        'appointment_id': appointment_id,
         csrfmiddlewaretoken: "{{csrf_token}}",
         action: "post",
       },
       success: function (json) {
-        $('.product-item[data-index="' + prodid + '"]').remove();
+        $('.product-item[data-index="' + appointment_id + '"]').remove();
 
         if (json.qty == 0) {
           total = 0
@@ -114,15 +114,17 @@
 
   // Update Item
   $(document).on("click", ".update-button", function (e) {
-    e.preventDefault();
+      var prodid = $(this).data("index");
+      var meeting_time = $('#meeting-time' + prodid).val();
+      e.preventDefault();
     $.ajax({
       type: "POST",
       url: '{% url "basket:basket_update" %}',
       data: {
-          appointment_id: $(this).data("index"),
-        meeting_time: $('#meeting-time').val(),
-        csrfmiddlewaretoken: "{{csrf_token}}",
-        action: "post",
+         'appointment_id': prodid,
+        'meeting_time': meeting_time,
+        'csrfmiddlewaretoken': "{{csrf_token}}",
+        'action': "post",
       },
       success: function (json) {
 

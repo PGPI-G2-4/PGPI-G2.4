@@ -45,7 +45,7 @@ class Basket:
         # Create appointment
         appointment = self.create_appointment(medic, meeting_time)
         # Save appointment in the session
-        self.basket[appointment.id] = {"date_time": str(meeting_time), "price": str(medic.regular_price)}
+        self.basket[appointment.id] = {"apppointment": str(meeting_time), "price": str(medic.regular_price)}
         self.save()
         print("Appointment added to the basket")
 
@@ -72,7 +72,10 @@ class Basket:
             basket[str(product.id)]["product"] = product
 
         for item in basket.values():
-            item["price"] = Decimal(item["price"])
+            if item["price"] != 'None':
+                item["price"] = Decimal(item["price"])
+            else:
+                item["price"] = 0.00
             yield item
 
     def __len__(self):
@@ -91,7 +94,7 @@ class Basket:
 
 
     def get_subtotal_price(self):
-        return sum(Decimal(item["price"]) for item in self.basket.values())
+        return sum(Decimal(item["price"]) for item in self.basket.values() if item["price"] != 'None')
 
     def get_delivery_price(self):
         newprice = 0.00
@@ -103,7 +106,7 @@ class Basket:
 
     def get_total_price(self):
         newprice = 0.00
-        subtotal = sum(Decimal(item["price"]) for item in self.basket.values())
+        subtotal = self.get_subtotal_price()
 
         if "purchase" in self.session:
             newprice = DeliveryOptions.objects.get(id=self.session["purchase"]["delivery_id"]).delivery_price

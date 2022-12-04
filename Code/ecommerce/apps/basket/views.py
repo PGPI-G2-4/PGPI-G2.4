@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404, render
 from ecommerce.apps.catalogue.models import Medic
 
 from .basket import Basket
+from ..orders.models import Appointment
 
 
 def basket_summary(request):
@@ -13,6 +14,7 @@ def basket_summary(request):
 
 
 def basket_add(request):
+    # TODO: No permitir agregar citas a un mismo medic en el mismo horario
     basket = Basket(request)
     if request.POST.get("action") == "post":
         product_id = int(request.POST.get("product_id"))
@@ -28,8 +30,10 @@ def basket_add(request):
 def basket_delete(request):
     basket = Basket(request)
     if request.POST.get("action") == "post":
-        product_id = int(request.POST.get("productid"))
+        product_id = int(request.POST.get("appointment_id"))
         basket.delete(product=product_id)
+        # Delete appointment from database
+        Appointment.objects.get(id=product_id).delete()
 
         basketqty = basket.__len__()
         baskettotal = basket.get_total_price()
@@ -38,7 +42,7 @@ def basket_delete(request):
 
 
 def basket_update(request):
-    basket = Basket(request)
+    basket = Basket(request) # TODO: El update va regulero, no se actualiza bien la fecha si recargas la pagina
     if request.POST.get("action") == "post":
         appointment_id = request.POST.get("appointment_id")
         meeting_time = request.POST.get("meeting_time")
