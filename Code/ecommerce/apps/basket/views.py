@@ -42,7 +42,7 @@ def basket_delete(request):
 
 
 def basket_update(request):
-    basket = Basket(request) # TODO: El update va regulero, no se actualiza bien la fecha si recargas la pagina
+    basket = Basket(request)
     if request.POST.get("action") == "post":
         appointment_id = request.POST.get("appointment_id")
         meeting_time = request.POST.get("meeting_time")

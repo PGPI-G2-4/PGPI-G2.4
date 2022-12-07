@@ -45,7 +45,7 @@ class Basket:
         # Create appointment
         appointment = self.create_appointment(medic, meeting_time)
         # Save appointment in the session
-        self.basket[appointment.id] = {"apppointment": str(meeting_time), "price": str(medic.regular_price)}
+        self.basket[appointment.id] = {"meeting_time": str(meeting_time), "price": str(medic.regular_price)}
         self.save()
         print("Appointment added to the basket")
 
@@ -89,7 +89,11 @@ class Basket:
         Update values in session data
         """
         if appointment_id in self.basket:
-            self.basket[appointment_id]["date_time"] = str(meeting_time)
+            self.basket[appointment_id]["meeting_time"] = str(meeting_time)
+            # Save new date to the appointment
+            appointment = Appointment.objects.get(id=appointment_id)
+            appointment.date_time = meeting_time
+            appointment.save()
             self.save()
 
 
