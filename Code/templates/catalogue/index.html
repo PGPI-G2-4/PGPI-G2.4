@@ -147,6 +147,13 @@ $(window).scroll(function(){
     
         </ul>
       </div>
+
+      
+
+
+
+
+
     <div class="row">
       <div class="album py-5">
         <div class="pb-3">
@@ -161,19 +168,15 @@ $(window).scroll(function(){
           {% for product in products %}
           <div class="col">
             <div class="card border-0" >
-              {% for image in product.product_image.all %}
-              {% if image.is_feature%}
               
-              <img class="img-fluid" alt="Responsive image" src="{{ image.image.url }}"
-                alt="{{ image.image.alt_text }}">
-              {% endif %}
-              {% endfor %}
+              <img class="img-fluid" alt="Responsive image" src="{{ product.image.url }}"
+                alt="{{ product.name }}">
               <div class="card-body">
                 <p class="card-text" style="text-align: center;">
                   <a class="text-white text-decoration-none" style="font-weight: bold;"
-                    href="{{ product.get_absolute_url }}">{{ product.title|slice:":50" }}...</a>
+                    href="{{ product.get_absolute_url }}">{{ product.name|slice:":50" }} {{ product.surname|slice:":50" }}</a>
                 </p>
-                <div class="fw-bold" style="color: #fff;">£{{product.regular_price}}</div>
+                <div class="fw-bold" style="color: #fff;">{{product.regular_price}}€</div>
               </div>
             </div>
           </div>

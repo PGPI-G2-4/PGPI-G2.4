@@ -1,0 +1,186 @@
+
+
+
+
+
+<div class="clearfix">
+  <a> Cita en el calendario</a>
+</div>
+<p id="pp">Para tener una cita con su médico de confianza introduce en la parte <br>inferior los datos en el formulario según le se conveniente. </p>
+
+
+<form method="post">
+  {% csrf_token %}
+  <table class="form form-table">
+    {{ form }}
+    <tr><td colspan="2"><button type="submit" class="btn btn-info right"> Submit </button></td></tr>
+  </table>
+</form>
+
+<div class="slider" >
+  <ul>
+    <li>
+      <img src="https://immagini.quotidiano.net/?url=http://p1014p.quotidiano.net:80/polopoly_fs/1.8166891.1665461713!/httpImage/image.jpg_gen/derivatives/cinemascope/image.jpg&w=700
+      " alt="">
+</li>
+    <li>
+      <img src="https://www.gla.ac.uk/media/Media_585017_smxx.jpg" alt="">
+
+</li>
+    <li>
+      <img src="https://www.studentassignmenthelp.co.uk/wp-content/uploads/2017/09/5.jpg" alt="">
+
+    <li>
+      <img src="https://f.hubspotusercontent10.net/hubfs/7694067/Imported_Blog_Media/comonosadaptamos.jpg" alt="">
+
+  </ul>
+</div>
+
+
+<style>
+
+body {
+  font-family: "ptsans", "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  
+
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+.clearfix{
+  text-align: center;
+  color: #17a2b8;
+  font-size: xx-large;
+  font-weight: bolder;
+}
+#pp{
+  text-align: center;
+
+}
+
+.btn {
+  padding: 15px;
+  color: #fff;
+  background-color: rgb(47, 146, 192);
+  box-shadow: 0 0 0 0;
+  margin-right: 3px;
+  text-decoration: none;
+  border: 3px solid rgb(12, 60, 82);
+  border-radius: 8px;
+  transition: 300ms;
+}
+.btn:hover{
+  background-color: rgb(12, 60, 82);
+  border: 3px solid rgb(47, 146, 192);
+}
+.clearfix {
+  margin: 15px;
+}
+
+.form {
+  margin: auto;
+}
+
+.form input, .form select, .form textarea {
+  border-radius: 5px;
+  border: 1px solid #17a2b8;
+  outline: none;
+  background: none;
+  padding: 5px;
+  width: 100%;
+}
+.form input, .form select, .form textarea{
+  background: #fff;
+}
+
+/* App styles */
+.title {
+  text-align: center;
+  margin: 10px;
+}
+
+.calendar {
+  width: 98%;
+  margin: auto;
+  font-size: 20px;
+}
+
+.calendar tr, .calendar td {
+  border: 1px solid black;
+}
+
+.calendar th {
+  padding: 10px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.calendar td {
+  width: 200px;
+  height: 150px;
+  padding: 20px 0px 0px 5px;
+}
+
+.month {
+  font-size: 25px;
+}
+
+.date {
+  font-size: 16px;
+}
+
+ul {
+  height: 100%;
+  padding: 0px 5px 0px 20px;
+}
+
+a {
+  color: #17a2b8;
+}
+
+.slider {
+	width: 45%;
+	margin: auto;
+	overflow: hidden;
+  margin-top: 2%;
+  transition-duration: 550ms;
+
+}
+
+
+.slider ul {
+	display: flex;
+	padding: 0;
+	width: 400%;
+	animation: cambio 20s infinite alternate linear;
+}
+
+.slider li {
+	width: 100%;
+	list-style: none;
+}
+
+.slider img {
+	width: 100%;
+}
+
+
+@keyframes cambio {
+	0% {margin-left: 0;}
+	20% {margin-left: 0;}
+	
+	25% {margin-left: -100%;}
+	45% {margin-left: -100%;}
+	
+	50% {margin-left: -200%;}
+	70% {margin-left: -200%;}
+	
+	75% {margin-left: -300%;}
+	100% {margin-left: -300%;}
+}
+</style>
