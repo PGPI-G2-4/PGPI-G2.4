@@ -42,27 +42,17 @@
       <div class="card mb-3 border-0 product-item" data-index="{{product.id}}">
         <div class="row g-0">
           <div class="col-md-2 d-none d-md-block">
-            {% for image in product.product_image.all %}
-            {% if image.is_feature%}
-            <img class="img-fluid" alt="Responsive image" src="{{ image.image.url }}" alt="{{ image.image.alt_text }}">
-            {% endif %}
-            {% endfor %}
+            <img class="img-fluid" alt="Responsive image" src="{{ product.medic.image.url }}" alt="{{ product.medic.name}}">
           </div>
           <div class="col-md-10 ps-md-3">
             <div class="card-body p-1">
               <a class="text-decoration-none text-reset" href="{{item.product.get_absolute_url}}">
-                <p class="card-text pb-3">{{product.title}}</p>
+                <p class="card-text">{{product.medic.name}} {{ product.medic.surname }}</p>
+                  <p class="card-text pb-3 text-danger">{{product.medic.department}}</p>
               </a>
-              <label for="select">Fecha de la cita</label>
-              <select id="select{{product.id}}" style="width:50px;height:31px;">
-                <option value="" selected disabled hidden>{{item.qty}}</option>
-                <option value="">1</option>
-                <option value="">2</option>
-                <option value="">3</option>
-                <option value="">4</option>
-              </select>
+              <input type="datetime-local" id="meeting-time{{ product.id }}" name="meeting-time" value="{{ product.date_time|date:'Y-m-d'}}T{{ product.date_time|time:'H:i' }}">
               <a type="button" id="update-button" data-index="{{product.id}}"
-                class="update-button text-decoration-none small ps-3">Actualizar</a>
+                class="update-button text-decoration-none small ps-3"> Update</a>
               <a type="button" id="delete-button" data-index="{{product.id}}"
                 class="delete-button text-decoration-none small">Borrar</a>
             </div>
@@ -79,18 +69,18 @@
 <script>
   // Delete Item
   $(document).on("click", ".delete-button", function (e) {
+      var appointment_id = $(this).data("index");
     e.preventDefault();
-    var prodid = $(this).data("index");
     $.ajax({
       type: "POST",
       url: '{% url "basket:basket_delete" %}',
       data: {
-        productid: $(this).data("index"),
+        'appointment_id': appointment_id,
         csrfmiddlewaretoken: "{{csrf_token}}",
         action: "post",
       },
       success: function (json) {
-        $('.product-item[data-index="' + prodid + '"]').remove();
+        $('.product-item[data-index="' + appointment_id + '"]').remove();
 
         if (json.qty == 0) {
           total = 0
@@ -110,20 +100,21 @@
 
   // Update Item
   $(document).on("click", ".update-button", function (e) {
-    e.preventDefault();
-    var prodid = $(this).data("index");
+      var prodid = $(this).data("index");
+      var meeting_time = $('#meeting-time' + prodid).val();
+      e.preventDefault();
     $.ajax({
       type: "POST",
       url: '{% url "basket:basket_update" %}',
       data: {
-        productid: $(this).data("index"),
-        productqty: $("#select" + prodid + " option:selected").text(),
-        csrfmiddlewaretoken: "{{csrf_token}}",
-        action: "post",
+         'appointment_id': prodid,
+        'meeting_time': meeting_time,
+        'csrfmiddlewaretoken': "{{csrf_token}}",
+        'action': "post",
       },
       success: function (json) {
 
-        total = (parseFloat(json.subtotal) + 11.50).toFixed(2);
+        total = (parseFloat(json.subtotal)).toFixed(2);
         document.getElementById("basket-qty").innerHTML = json.qty;
         document.getElementById("subtotal").innerHTML = json.subtotal;
         document.getElementById("total").innerHTML = total;
