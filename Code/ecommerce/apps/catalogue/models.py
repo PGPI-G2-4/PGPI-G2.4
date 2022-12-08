@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
+from ecommerce.apps.account.models import Customer
 from mptt.models import MPTTModel, TreeForeignKey
 
 
@@ -40,12 +41,15 @@ class Medic(models.Model):
 
 
 class Event(models.Model):
-    title = models.CharField(max_length=200)
-    description = models.TextField()
+
+   
+    Medico  = models.CharField(max_length=200)
+    Departamento = models.CharField(max_length=200)
     start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    client_email = models.EmailField(_("email address"))
+    
 
     @property
     def get_html_url(self):
         url = reverse('calendar:event_edit', args=(self.id,))
-        return f'<a href="{url}"> {self.title} </a>'
+        return f'<a href="{url}"> {self.Medico} </a>'
