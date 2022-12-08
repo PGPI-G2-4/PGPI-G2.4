@@ -1,7 +1,5 @@
-
-
-
-
+{% extends "../base.html" %}
+{% block content %}
 
 <div class="clearfix">
   <a> Cita en el calendario</a>
@@ -9,13 +7,38 @@
 <p id="pp">Para tener una cita con su médico de confianza introduce en la parte <br>inferior los datos en el formulario según le se conveniente. </p>
 
 
-<form method="post">
+<form method="post" id="formularioEvento">
   {% csrf_token %}
   <table class="form form-table">
     {{ form }}
-    <tr><td colspan="2"><button type="submit" class="btn btn-info right"> Submit </button></td></tr>
+    <tr><td colspan="2"><button type="submit" id="cita" class="btn btn-info right"> Submit </button></td></tr>
   </table>
 </form>
+
+<script>
+  // Add to basket with AJAX and designated date and time
+
+  $(document).ready(function () {
+    $('#cita').submit(function () {
+        const medico = $('#id_Medico').val();
+        const depart = $('#id_Departamento').val();
+        const meeting_time = $('#fecha_cita').val();
+        
+        $.ajax({
+        url: "{% url 'basket:basket_add' %}",
+        type: "POST",
+        data: {
+          'id_Medico': medico,
+          'id_Departamento': depart,
+          'meeting_time': meeting_time,
+          'csrfmiddlewaretoken': '{{ csrf_token }}',
+            'action': 'post'
+        }, 
+      });
+    });
+  });
+
+</script>
 
 <div class="slider" >
   <ul>
@@ -184,3 +207,5 @@ a {
 	100% {margin-left: -300%;}
 }
 </style>
+
+{% endblock %}

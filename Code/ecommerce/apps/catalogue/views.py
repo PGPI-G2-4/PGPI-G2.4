@@ -1,5 +1,7 @@
 import calendar
-from django.shortcuts import HttpResponseRedirect, get_object_or_404, render
+from django.shortcuts import HttpResponseRedirect, get_object_or_404, render 
+
+from ecommerce.apps.basket.views import basket_add2
 
 from .models import Department, Medic
 from ecommerce.apps.catalogue.forms import EventForm
@@ -13,7 +15,12 @@ from datetime import date, datetime, timedelta
 
 def product_all(request):
     products = Medic.objects.all()
+    # add a temporal email to the session
+    if "email" not in request.session:
+        request.session["email"] = datetime.now().strftime("%Y%m%d%H%M%S") + "@temporal.com"
     return render(request, "catalogue/index.html", {"products": products})
+
+
 
 
 def category_list(request, category_slug=None):
@@ -37,7 +44,7 @@ class CalendarView(generic.ListView):
         context = super().get_context_data(**kwargs)
         d = get_date(self.request.GET.get('day', None))
         cal = Calendar(d.year, d.month)
-        html_cal = cal.formatmonth(withyear=True)
+        html_cal = cal.formatmonth(self.request,withyear=True)
         context['calendar'] = mark_safe(html_cal)
         context['prev_month'] = prev_month(d)
         context['next_month'] = next_month(d)
@@ -62,14 +69,33 @@ def next_month(d):
     return month
 
 def event(request, event_id=None):
+    
     instance = Event()
     if event_id:
         instance = get_object_or_404(Event, pk=event_id)
     else:
         instance = Event()
     
+    instance.client_email=request.session["email"]
+    if request.GET.get('medic', False) : 
+        medic=Medic.objects.filter(slug= request.GET["medic"] )[0]
+        instance.Medico=medic.name
+        instance.Departamento= medic.department.name
+   
     form = EventForm(request.POST or None, instance=instance)
     if request.POST and form.is_valid():
         form.save()
+        fecha=form['start_time'].value()
+        departamento=form['Departamento'].value()
+        id_departamento=Department.objects.filter(name__contains= departamento)[0]
+        medico= form['Medico'].value()
+        print(form['client_email'].value())
+        id_medico=Medic.objects.filter(name__contains= medico.split(' ')[0]  ,department=departamento)[0].id
+        
+        carrito= basket_add2(request,id_medico,fecha)
+        
         return HttpResponseRedirect(reverse('catalogue:calendar'))
     return render(request, 'catalogue/event.html', {'form': form})
+
+    #   print form['my_field'].value()
+    #     print form.data['my_field']

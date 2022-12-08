@@ -2,7 +2,7 @@ from datetime import datetime
 
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
-from ecommerce.apps.catalogue.models import Medic
+from ecommerce.apps.catalogue.models import Department, Medic
 
 from .basket import Basket
 from ..orders.models import Appointment
@@ -26,6 +26,16 @@ def basket_add(request):
         response = JsonResponse({"qty": basketqty})
         return response
 
+def basket_add2(request, product_id, meeting_time):
+    # TODO: No permitir agregar citas a un mismo medic en el mismo horario
+        basket = Basket(request)    
+        product = get_object_or_404(Medic, id=product_id)
+        basket.add(medic=product, meeting_time=meeting_time)
+
+        basketqty = basket.__len__()
+        response = JsonResponse({"qty": basketqty})
+        return response
+        
 
 def basket_delete(request):
     basket = Basket(request)
@@ -52,3 +62,17 @@ def basket_update(request):
         basketsubtotal = basket.get_subtotal_price()
         response = JsonResponse({"qty": basketqty, "subtotal": basketsubtotal})
         return response
+
+# def get_medic_id(request):
+#     # TODO: No permitir agregar citas a un mismo medic en el mismo horario
+#     basket = Basket(request)
+#     if request.POST.get("action") == "post":
+#         product_id = int(request.POST.get("product_id"))
+#         if not product_id:
+#             nombre=request.POST.GET("id_Medico")
+#             departamentos=request.POST.GET("id_Departamento")
+#             departamento=Department.objects.filter(name__contains= departamentos)[0]
+#             medico=Medic.objects.filter(name__contains= nombre ,department=departamento)[0]
+#             product_id = medico.id
+
+#         return product_id

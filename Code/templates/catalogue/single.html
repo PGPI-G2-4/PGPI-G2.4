@@ -22,13 +22,13 @@
             <p class="text-muted">includes tax</p>
           </div>
           <div>
-                <input type="datetime-local" id="meeting-time" name="meeting-time">
+                <a class="btn btn-info right" id="cita" href="{% url 'catalogue:event_new'  %}?medic={{product.slug}}"> Selecciona la fecha de tu cita aqui! </a>
           </div>
-        </div>
+        </div>                                      
         <hr>
         <p>¿Cree que necesita contratar los servicios de <b>{{ product.title }}</b> ?</p>
 
-        <button type="button" id="add-button" value="{{product.id}}" class="btn btn-success fw500">Añadir al carrito</button>
+      
         
         <!--<a href="{% url "account:user_wishlist" product.id  %}" class="btn btn-dark fw500" role="button" aria-disabled="true">Add to Wish List</a>-->
       </div>

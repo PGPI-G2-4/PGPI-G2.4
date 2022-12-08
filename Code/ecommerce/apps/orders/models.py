@@ -13,7 +13,7 @@ class Appointment(models.Model):
     date_time = models.DateTimeField(_("Date and time of appointment"))
     client_name = models.CharField(max_length=255)
     client_surname = models.CharField(max_length=255)
-    client_email = models.EmailField(_("email address"), unique=True)
+    client_email = models.EmailField(_("email address"))
     price = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
     medic = models.ForeignKey(Medic, on_delete=models.CASCADE, related_name="appointments")
 
