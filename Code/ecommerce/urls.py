@@ -10,6 +10,7 @@ urlpatterns = [
     path("basket/", include("ecommerce.apps.basket.urls", namespace="basket")),
     path("account/", include("ecommerce.apps.account.urls", namespace="account")),
     path("orders/", include("ecommerce.apps.orders.urls", namespace="orders")),
+    path("terms/", include("ecommerce.apps.terms.urls", namespace="terms")),
 ]
 
 if settings.DEBUG:

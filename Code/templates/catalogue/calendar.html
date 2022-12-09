@@ -1,0 +1,67 @@
+{% extends "../base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="clearfix">
+	<a class="btn btn-info left" href="{'% url 'catalogue:calendar' %}?{'{ prev_month }}"> Previous Month </a>
+	<a class="btn btn-info right"  href="{'% url 'catalogue:calendar' %}?{'{ next_month }}"> Next Month </a>
+</div>  
+
+<h1 style="text-align: center;">Calendario de citas médicas</h1>
+<a class="btn btn-info right" id="botonevent" href="{% url 'catalogue:event_new' %}"> Pide tu cita</a>
+<div class="d-flex flex-column-reverse">{{ calendar }}</div>
+
+
+
+<style>
+	/* Common styles */
+
+.calendar {
+  width: 98%;
+  
+  margin: auto;
+  font-size: 20px;
+}
+
+.calendar tr, .calendar td {
+  border: 1px solid rgb(63, 138, 235);
+}
+
+.calendar th {
+  padding: 10px;
+  text-align: left;
+  font-size: 35px;
+}
+
+.calendar td {
+  width: 200px;
+  height: 150px;
+  padding: 20px 10px 10px 5px;
+}
+
+.month {
+  font-size: 85px;
+}
+
+.date {
+  font-size: 30px;
+}
+
+.dia {
+  height: 100%;
+  padding: 0px 5px 0px 20px;
+  list-style: none;
+}
+
+.medico{
+  color: black;
+  padding: 8px;
+  margin-bottom: 10px;
+  background-color: #17a2b8;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+</style>
+
+{% endblock %}

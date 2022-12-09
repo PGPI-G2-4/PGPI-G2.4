@@ -10,8 +10,6 @@ from ecommerce.apps.checkout.models import DeliveryOptions
 
 
 
-
-
 class Basket:
     """
     A base Basket class, providing some default behaviors that
