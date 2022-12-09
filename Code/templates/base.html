@@ -65,8 +65,8 @@
               <ul class="dropdown-menu rounded-0 border-0" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="{% url "catalogue:store_home" %}">Todos los departamentos</a></li>
                 {% for c in categories %}
-                <li {% if category.slug == c.slug %}class="selected" {% endif %}>
-                  <a class="dropdown-item" href="{{ c.get_absolute_url }}">{{ c.name|title }}</a>
+                <li {% if category.name == c.name %}class="selected" {% endif %}>
+                  <a class="dropdown-item" href="{{ c.get_absolute_url }}">{{ c.name }}</a>
                 </li>
                 {% endfor %}
               </ul>
@@ -249,41 +249,10 @@ html {
         </a>
         <small class="d-block mb-3 text-muted">&copy; 2017-2021</small>
       </div>
-      <div class="col-6 col-md fs15">
-        <h5>Features</h5>
-        <ul class="list-unstyled">
-          <li><a class="link-secondary text-decoration-none" href="#">Cool stuff</a></li>
-          <li><a class="link-secondary text-decoration-none" href="#">Random feature</a></li>
-          <li><a class="link-secondary text-decoration-none" href="#">Team feature</a></li>
-          <li><a class="link-secondary text-decoration-none" href="#">Stuff for developers</a></li>
-          <li><a class="link-secondary text-decoration-none" href="#">Another one</a></li>
-          <li><a class="link-secondary text-decoration-none" href="#">Last time</a></li>
-        </ul>
-      </div>
-      <div class="col-6 col-md fs15">
-        <h5>Resources</h5>
-        <ul class="list-unstyled">
-          <li><a class="link-secondary text-decoration-none" href="#">Resource name</a></li>
-          <li><a class="link-secondary text-decoration-none" href="#">Resource</a></li>
-          <li><a class="link-secondary text-decoration-none" href="#">Another resource</a></li>
-          <li><a class="link-secondary text-decoration-none" href="#">Final resource</a></li>
-        </ul>
-      </div>
-      <div class="col-6 col-md fs15">
-        <h5>Resources</h5>
-        <ul class="list-unstyled">
-          <li><a class="link-secondary text-decoration-none" href="#">Business</a></li>
-          <li><a class="link-secondary text-decoration-none" href="#">Education</a></li>
-          <li><a class="link-secondary text-decoration-none" href="#">Government</a></li>
-          <li><a class="link-secondary text-decoration-none" href="#">Gaming</a></li>
-        </ul>
-      </div>
+
       <div class="col-6 col-md">
-        <h5>About</h5>
+        <h5>Sobre Nosotros</h5>
         <ul class="list-unstyled">
-          <li><a class="link-secondary text-decoration-none" href="#">Team</a></li>
-          <li><a class="link-secondary text-decoration-none" href="#">Locations</a></li>
-          <li><a class="link-secondary text-decoration-none" href="#">Privacy</a></li>
           <li><a class="link-secondary text-decoration-none" href="terms/">Términos y condiciones</a></li>
         </ul>
       </div>

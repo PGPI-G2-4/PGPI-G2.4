@@ -23,11 +23,9 @@ def product_all(request):
 
 
 
-def category_list(request, category_slug=None):
-    category = get_object_or_404(Department, slug=category_slug)
-    products = Medic.objects.filter(
-        category__in=Department.objects.get(name=category_slug).get_descendants(include_self=True)
-    )
+def category_list(request, name=None):
+    category = get_object_or_404(Department, name=name)
+    products = Medic.objects.filter(department=category)
     return render(request, "catalogue/category.html", {"category": category, "products": products})
 
 
