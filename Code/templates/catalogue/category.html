@@ -97,14 +97,12 @@ opacity: 1;
         {% for product in products %}
         <div class="col">
           <div class="card border-0">
-            {% for image in product.product_image.all %}
-            {% if image.is_feature%}
-            <img class="img-fluid" alt="Responsive image" src="{{ image.image.url }}" alt="{{ image.image.alt_text }}">
-            {% endif %}
-            {% endfor %}
+
+            <img class="img-fluid" alt="Responsive image" src="{{ product.image.url }}" alt="{{ product.name }}">
+
             <div class="card-body ">
               <p class="card-text" style="text-align: center; font-weight: bold;">
-                <a class="text-white text-decoration-none" href="{{ product.get_absolute_url }}">{{ product.title }}</a>
+                <a class="text-white text-decoration-none" href="{{ product.get_absolute_url }}">{{ product.name }} {{ product.surname }}</a>
               </p>
               <div class="fw-bold" style="color: #fff;">£{{product.regular_price}}</div>
 

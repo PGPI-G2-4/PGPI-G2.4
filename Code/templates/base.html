@@ -65,8 +65,8 @@
               <ul class="dropdown-menu rounded-0 border-0" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="{% url "catalogue:store_home" %}">Todos los departamentos</a></li>
                 {% for c in categories %}
-                <li {% if category.slug == c.slug %}class="selected" {% endif %}>
-                  <a class="dropdown-item" href="{{ c.get_absolute_url }}">{{ c.name|title }}</a>
+                <li {% if category.name == c.name %}class="selected" {% endif %}>
+                  <a class="dropdown-item" href="{{ c.get_absolute_url }}">{{ c.name }}</a>
                 </li>
                 {% endfor %}
               </ul>
