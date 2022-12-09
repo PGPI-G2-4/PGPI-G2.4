@@ -33,18 +33,7 @@ def category_list(request, category_name=None):
     products = Medic.objects.filter(department__name=category_name)
     return render(request, "catalogue/category.html", {"category": category, "products": products})
 
-def listar_medico(request):
-    busqueda = request.GET.get("buscar")
-    print(busqueda)
-    medico = Medic.objects.all()
 
-    if busqueda:
-        medico = Medic.objects.filter(
-            Q(name__icontains = busqueda) | 
-            Q(surname__icontains = busqueda)
-        ).distinct()
-
-    return render(request, 'catalogue/medics.html', {'medico':medico})
 
 
 def product_detail(request, slug):
