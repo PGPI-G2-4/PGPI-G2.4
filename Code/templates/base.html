@@ -87,11 +87,11 @@
             </div>
             <span class="fs15 fw500">Shop</span>
           </button>
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+          <form id="formulario" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
           method="GET">
             
             <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar..." name="buscar" value="{{ request.GET.buscar }}">
+              <input type="text" class="form-control bg-light border-0 small" placeholder="Busca a un especialista de forma rápida" name="buscar" value="{{ request.GET.buscar }}">
               <div class="input-group-append">
                 <button class="btn btn-primary" type="submit">
                   <i class="fas fa-search fa-sm"></i>
@@ -120,7 +120,7 @@
                   <div class="dropdown-menu rounded-0" aria-labelledby="navbarDropdown">
                     <div class="card border-0">
                       <div class="card-body">
-                        <h6 class="card-title">MI cuenta</h6>
+                        <h6 class="card-title">Mi cuenta</h6>
                         <ul class="list-group list-group-flush dropdown-account-link">
                           {% if user.is_authenticated %}
                           <a href="{% url "account:dashboard" %}" class="text-reset small list-group-item p-0 pb-1 border-0 dropdown-account-link">Tu cuenta</a>
@@ -189,6 +189,12 @@
   </header>
 
 <style> 
+
+#formulario{
+  
+  width: 45%;
+}
+
 #hola{
   
   width: 250px;
