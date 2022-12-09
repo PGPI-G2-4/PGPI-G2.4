@@ -12,7 +12,7 @@ djangoproject_home = "C:/Users/Usuario/Desktop/Universidad/4Cuarto/PGPI/PGPI-G2.
 
 import sys,os
 sys.path.append(djangoproject_home)
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "ecommerce.settings")
 
 import django
 django.setup()
