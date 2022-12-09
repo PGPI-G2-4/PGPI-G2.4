@@ -12,6 +12,17 @@ from mptt.models import MPTTModel, TreeForeignKey
 
 class Department(models.Model):
     name = models.CharField(max_length=255, primary_key=True)
+    
+    class MPTTMeta:
+        order_insertion_by = ["name"]
+
+    class Meta:
+        verbose_name = _("category")
+        verbose_name_plural = _("categories")
+
+    def get_absolute_url(self):
+        return reverse("catalogue:category_list", args=[self.name])
+
 
     def __str__(self):
         return self.name

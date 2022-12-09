@@ -1,4 +1,5 @@
 import calendar
+import queue
 from django.shortcuts import HttpResponseRedirect, get_object_or_404, render
 
 from .models import Department, Medic
@@ -9,19 +10,41 @@ from django.utils.safestring import mark_safe
 from django.http import HttpResponse
 from django.views import generic
 from .models import *
+from django.db.models import Q
 from datetime import date, datetime, timedelta
 
 def product_all(request):
+    busqueda = request.GET.get("buscar")
     products = Medic.objects.all()
+   
+    if busqueda:
+        medico = Medic.objects.filter(
+            Q(name__icontains = busqueda) | 
+            Q(surname__icontains = busqueda)
+        ).distinct()
+        print(medico)
+        return render(request, 'catalogue/medics.html', {'products':medico})
     return render(request, "catalogue/index.html", {"products": products})
+   
 
 
-def category_list(request, category_slug=None):
-    category = get_object_or_404(Department, slug=category_slug)
-    products = Medic.objects.filter(
-        category__in=Department.objects.get(name=category_slug).get_descendants(include_self=True)
-    )
+def category_list(request, category_name=None):
+    category = get_object_or_404(Department, name=category_name)
+    products = Medic.objects.filter(department__name=category_name)
     return render(request, "catalogue/category.html", {"category": category, "products": products})
+
+def listar_medico(request):
+    busqueda = request.GET.get("buscar")
+    print(busqueda)
+    medico = Medic.objects.all()
+
+    if busqueda:
+        medico = Medic.objects.filter(
+            Q(name__icontains = busqueda) | 
+            Q(surname__icontains = busqueda)
+        ).distinct()
+
+    return render(request, 'catalogue/medics.html', {'medico':medico})
 
 
 def product_detail(request, slug):

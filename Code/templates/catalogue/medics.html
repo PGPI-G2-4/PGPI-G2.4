@@ -1,6 +1,6 @@
 {% extends "../base.html" %}
 {% block title %}
-{% if category %}{{ category.name }}{% else %}Products{% endif %}
+Products
 {% endblock %}
 {% block content %}
 
@@ -78,15 +78,7 @@ opacity: 1;
 
 </style>
 
-<div class="container" style="max-width: 1000px">
-  <div class="col-12">
-    <h1 class="h2" style=" text-align:center;font-weight: bold; color: rgb(47, 146, 192);">{{ category.name|title }}</h1>
-  </div>
-  
-    <p style=" text-align:center; ">Selección de especialistas en el ámbito de {{ category.name|title }}</p>
-  
-  <hr />
-</div>
+
 <div class="container">
   <div class="row">
     <div class="album">
