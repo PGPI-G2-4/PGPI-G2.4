@@ -21,9 +21,18 @@
           <div><span class="h3">{{ product.regular_price }}€</span>
             <p class="text-muted">includes tax</p>
           </div>
+
           <div>
+              {% if not appointment %}
                 <a class="btn btn-info right" id="cita" href="{% url 'catalogue:event_new'  %}?medic={{product.slug}}"> Selecciona la fecha de tu cita aqui! </a>
+             {% else %}
+                 <p>Tienes una cita prevista para: </p>
+                 <p><strong class="h3 text-primary">{{appointment.date_time |date:"D d M, Y H:i" }}</strong></p>
+
+            {% endif %}
+
           </div>
+
         </div>                                      
         <hr>
 

@@ -13,6 +13,9 @@ from django.views import generic
 from .models import *
 from datetime import date, datetime, timedelta
 
+from ..orders.models import Appointment
+
+
 def product_all(request):
     products = Medic.objects.all()
     # add a temporal email to the session
@@ -31,8 +34,11 @@ def category_list(request, name=None):
     return render(request, "catalogue/category.html", {"category": category, "products": products, "email": request.session["email"]})
 
 
-def product_detail(request, slug):
+def product_detail(request, slug, appointment_id=None):
     product = get_object_or_404(Medic, slug=slug)
+    if appointment_id:
+        appointment = get_object_or_404(Appointment, pk=appointment_id)
+        return render(request, "catalogue/single.html", {"product": product, "appointment": appointment, "email": request.session["email"]})
     return render(request, "catalogue/single.html", {"product": product, "email": request.session["email"]})
 
 

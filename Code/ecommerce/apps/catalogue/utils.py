@@ -1,6 +1,21 @@
 from datetime import datetime, timedelta
 from calendar import HTMLCalendar
+
+from django.urls import reverse
+from django.utils.text import slugify
+
 from .models import Event
+from ..orders.models import Appointment
+
+
+def get_medic_absolute_url(event):
+	# Slugify the medic name
+	medic_slug = slugify(event.Medico)
+	# Get the appointment searching by email and date
+	appointment = Appointment.objects.get(client_email=event.client_email, date_time=event.start_time)
+	# Pass the appointment id to the url
+	return reverse("catalogue:product_detail", args=[medic_slug, appointment.id])
+
 
 class Calendar(HTMLCalendar):
 	def __init__(self, year=None, month=None):
@@ -14,7 +29,7 @@ class Calendar(HTMLCalendar):
 		events_per_day = events.filter(start_time__day=day)
 		d = ''
 		for event in events_per_day:
-			d += f"<li class='medico'> {event.Medico} </li>"
+			d += f"<a href={get_medic_absolute_url(event)}><li class='medico'> {event.Medico} </li></a>"
 
 		if day != 0:
 			return f"<td><span class='date'>{day}</span><ul class='dia'> {d} </ul></td>"

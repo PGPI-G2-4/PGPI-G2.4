@@ -50,7 +50,6 @@ class Event(models.Model):
     Departamento = models.CharField(max_length=200)
     start_time = models.DateTimeField()
     client_email = models.EmailField(_("email address"))
-    
 
     @property
     def get_html_url(self):
