@@ -10,7 +10,7 @@ from ..orders.models import Appointment
 
 def basket_summary(request):
     basket = Basket(request)
-    return render(request, "basket/summary.html", {"basket": basket})
+    return render(request, "basket/summary.html", {"basket": basket, "email": request.session["email"]})
 
 
 def basket_add(request):
@@ -63,16 +63,3 @@ def basket_update(request):
         response = JsonResponse({"qty": basketqty, "subtotal": basketsubtotal})
         return response
 
-# def get_medic_id(request):
-#     # TODO: No permitir agregar citas a un mismo medic en el mismo horario
-#     basket = Basket(request)
-#     if request.POST.get("action") == "post":
-#         product_id = int(request.POST.get("product_id"))
-#         if not product_id:
-#             nombre=request.POST.GET("id_Medico")
-#             departamentos=request.POST.GET("id_Departamento")
-#             departamento=Department.objects.filter(name__contains= departamentos)[0]
-#             medico=Medic.objects.filter(name__contains= nombre ,department=departamento)[0]
-#             product_id = medico.id
-
-#         return product_id

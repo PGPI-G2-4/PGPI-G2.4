@@ -2,21 +2,23 @@ import json
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, JsonResponse
+from django.core.mail import send_mail
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.shortcuts import render
 from ecommerce.apps.basket.basket import Basket
 from ecommerce.apps.orders.models import Appointment, OrderItem
 
 from .models import DeliveryOptions
+from ..catalogue.models import Event
+from ... import settings
 
 
-@login_required
 def deliverychoices(request):
     deliveryoptions = DeliveryOptions.objects.filter(is_active=True)
-    return render(request, "checkout/delivery_choices.html", {"deliveryoptions": deliveryoptions})
+    return render(request, "checkout/delivery_choices.html", {"deliveryoptions": deliveryoptions, "email": request.session["email"]})
 
 
-@login_required
+
 def basket_update_delivery(request):
     basket = Basket(request)
     if request.POST.get("action") == "post":
@@ -33,78 +35,60 @@ def basket_update_delivery(request):
             session["purchase"]["delivery_id"] = delivery_type.id
             session.modified = True
 
-        response = JsonResponse({"total": updated_total_price, "delivery_price": delivery_type.delivery_price})
+        response = JsonResponse({"total": updated_total_price, "delivery_price": delivery_type.delivery_price, "sub_total": basket.get_subtotal_price()})
         return response
 
 
-@login_required
+
 def delivery_address(request):
 
-    session = request.session
+    email = request.session["email"]
+    basket = Basket(request)
     if "purchase" not in request.session:
         messages.success(request, "Please select delivery option")
         return HttpResponseRedirect(request.META["HTTP_REFERER"])
 
 
-    return render(request, "checkout/delivery_address.html")
+    return render(request, "checkout/delivery_address.html", {"email": email, "basket": basket})
 
 
-@login_required
+
 def payment_selection(request):
 
     session = request.session
-    if "address" not in request.session:
+    basket = Basket(request)
+    if "temporal" in request.session["email"]:
         messages.success(request, "Please select address option")
         return HttpResponseRedirect(request.META["HTTP_REFERER"])
 
-    return render(request, "checkout/payment_selection.html", {})
+    return render(request, "checkout/payment_selection.html", {'basket': basket, "email": request.session["email"]})
 
 
-####
-# PayPay
-####
-from paypalcheckoutsdk.orders import OrdersGetRequest
 
-from .paypal import PayPalClient
-
-
-@login_required
-def payment_complete(request):
-    PPClient = PayPalClient()
-
-    body = json.loads(request.body)
-    data = body["orderID"]
-    user_id = request.user.id
-
-    requestorder = OrdersGetRequest(data)
-    response = PPClient.client.execute(requestorder)
-
-    total_paid = response.result.purchase_units[0].amount.value
-
-    basket = Basket(request)
-    order = Order.objects.create(
-        user_id=user_id,
-        full_name=response.result.purchase_units[0].shipping.name.full_name,
-        email=response.result.payer.email_address,
-        address1=response.result.purchase_units[0].shipping.address.address_line_1,
-        address2=response.result.purchase_units[0].shipping.address.admin_area_2,
-        postal_code=response.result.purchase_units[0].shipping.address.postal_code,
-        country_code=response.result.purchase_units[0].shipping.address.country_code,
-        total_paid=response.result.purchase_units[0].amount.value,
-        order_key=response.result.id,
-        payment_option="paypal",
-        billing_status=True,
-    )
-    order_id = order.pk
-
-    for item in basket:
-        OrderItem.objects.create(order_id=order_id, product=item["product"], price=item["price"], quantity=item["qty"])
-
-    return JsonResponse("Payment completed!", safe=False)
-
-
-@login_required
 def payment_successful(request):
     basket = Basket(request)
+    send_confirmation_email(request.session["email"])
     basket.clear()
     return render(request, "checkout/payment_successful.html", {})
+
+def send_confirmation_email(email):
+    subject = "Gracias por confiar en CIT@MEDICA!"
+    message = "Se ha realizado tu pedido. Si quieres revisar tus citas puedes hacerlo ingresando tu correo electrónico en la página de inicio."
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = [email]
+    send_mail(subject, message, email_from, recipient_list, auth_password=settings.EMAIL_HOST_PASSWORD)
+
+
+# Updates the session's email address to the new one
+def update_email(request):
+    if request.method == "POST":
+        new_email = request.POST.get("email")
+        old_email = request.session["email"]
+        request.session["email"] = new_email
+        # Update the email address in the database
+        Appointment.objects.filter(client_email=old_email).update(client_email=new_email)
+        Event.objects.filter(client_email=old_email).update(client_email=new_email)
+
+        return HttpResponse("Success")
+    else:
+        return HttpResponse("Error")

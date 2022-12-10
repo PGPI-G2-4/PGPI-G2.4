@@ -23,17 +23,13 @@
         
       </div>
       <div class="text-end">
-        <div class="">Cantidad a pagar: <span class="fw-bold">£</span>
-          <div id="subtotal" class="d-inline-flex fw-bold">{{basket.get_subtotal_price}}</div>
-        </div>
-        <div class="pt-2">Total: <span class="fw-bold h5">£</span><span id="total"
-            class="fw-bold h5">{{basket.get_total_price}}</span></div>
+        <div class="pt-2">Total: <span id="total"
+            class="fw-bold h5">{{basket.get_total_price}}</span> <span class="fw-bold h5">€</span></div>
       </div>
     </div>
     <div class="col-md-5 col-lg-4 order-md-last p-0 order-3">
       <div class="d-grid gap-2 ">
         <a role="button" href="{% url 'checkout:deliverychoices' %}" class="btn btn-success fw-bold" type="button">Pagar de forma segura</a>
-        <button class="btn btn-light" type="button">Guardar para más tarde</button>
       </div>
     </div>
     <div class="col-md-7 col-lg-8 p-0">
@@ -52,7 +48,7 @@
               </a>
               <input type="datetime-local" id="meeting-time{{ product.id }}" name="meeting-time" value="{{ product.date_time|date:'Y-m-d'}}T{{ product.date_time|time:'H:i' }}">
               <a type="button" id="update-button" data-index="{{product.id}}"
-                class="update-button text-decoration-none small ps-3"> Update</a>
+                class="update-button text-decoration-none small ps-3"> Actualizar</a>
               <a type="button" id="delete-button" data-index="{{product.id}}"
                 class="delete-button text-decoration-none small">Borrar</a>
             </div>
