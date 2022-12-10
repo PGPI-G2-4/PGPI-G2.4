@@ -2,7 +2,119 @@
 {% block title %}Store - Low Prices in Books & more{% endblock %}
 {% block content %}
 
+<style>
+/* Silder carrousel*/
+.slider {
+	width: 100%;
+	margin: auto;
+	overflow: hidden;
+}
+
+.slider ul {
+	display: flex;
+	padding: 0;
+	width: 400%;
+	
+	animation: cambio 20s infinite alternate linear;
+}
+
+.slider li {
+	width: 100%;
+	list-style: none;
+}
+
+.slider img {
+	width: 100%;
+}
+
+@keyframes cambio {
+	0% {margin-left: 0;}
+	20% {margin-left: 0;}
+	
+	25% {margin-left: -100%;}
+	45% {margin-left: -100%;}
+	
+	50% {margin-left: -200%;}
+	70% {margin-left: -200%;}
+	
+	75% {margin-left: -300%;}
+	100% {margin-left: -300%;}
+}
+
+.card img {
+  display: block;
+  min-height: 250px;
+  max-height: 250px;
+  max-width: 100%;
+  height: auto;
+}
+.card{
+padding: 2px;
+transition-duration: 550ms;
+}
+.card-body{
+  transition-duration: 550ms;
+  opacity: 0;
+}
+
+.card:hover{
+background-color: rgb(47, 146, 192);
+padding: 2px;
+}
+.card:hover .card-body{
+  transition-duration: 550ms;
+opacity: 1;
+}
+html {
+  scroll-behavior: smooth;
+}
+.ir-arriba {
+	display:none;
+	padding:20px;
+	background:rgb(47, 146, 192);
+	font-size:20px;
+	color:#fff;
+	cursor:pointer;
+	position: fixed;
+	bottom:20px;
+	right:20px;
+  border-radius: 80%;
+}
+
+
+
+
+
+</style>
+
+<script>
+
+$(document).ready(function(){
+
+$('.ir-arriba').click(function(){
+  $('body, html').animate({
+    scrollTop: '0px'
+  }, 300);
+});
+
+$(window).scroll(function(){
+  if( $(this).scrollTop() > 0 ){
+    $('.ir-arriba').slideDown(300);
+  } else {
+    $('.ir-arriba').slideUp(300);
+  }
+});
+
+});
+
+</script>
+
+<span class="ir-arriba "><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+  <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"/>
+</svg></span>
+
 <div class="container">
+  
   <div class="alert alert-primary fw600 rounded-0 border-0 pb-3" role="alert">
     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-info-circle me-2"
       viewBox="0 0 16 16">
@@ -10,34 +122,61 @@
       <path
         d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
     </svg>
-    COVID-19 - <u>Click here for our latest updates</u> on our stores, website and contact centre. Thank you for
-    your patience and support.
+    COVID-19 - <u>Pincha aquí para ver las últimas novedades</u> en nuestro centro médico, página web y centro de contacto. Gracias por su paciencia y comprensión.
   </div>
   <div class="container">
+    <div class="slider">
+      <h2 style="text-align: center; font-weight: bold; color: rgb(47, 146, 192);">Departamentos destacados de la semana</h2>
+        <ul>
+          <li>
+            <img src="https://medellingeriatrico.com/wp-content/uploads/2022/06/reducing-hospital-readmissions-700x300.jpg" alt="">
+            <h2 style="text-align: center; color: white; background-color: rgb(47, 146, 192); padding: 5px; border: 1px solid rgb(31, 93, 134);"> Cardiología </h2>
+    </li>
+          <li>
+            <img src="https://images.ctfassets.net/4gsr0wtgbzc1/7fxGA2cRELS8TS4mm4454t/2de728a7cdb1b2264037fd1663c852f6/file.png?fm=webp&q=75" alt="">
+            <h2 style="text-align: center; color: white; background-color: rgb(47, 146, 192); padding: 5px; border: 1px solid rgb(31, 93, 134);"> Ginecología </h2>
+    
+    </li>
+          <li>
+            <img src="https://nombresparatodo.com/wp-content/uploads/2021/08/consulta-700x300.jpg" alt="">
+            <h2 style="text-align: center; color: white; background-color: rgb(47, 146, 192); padding: 5px; border: 1px solid rgb(31, 93, 134);"> Nutrición </h2>
+    
+          <li>
+            <img src="https://f.hubspotusercontent10.net/hubfs/7694067/Imported_Blog_Media/comonosadaptamos.jpg" alt="">
+            <h2 style="text-align: center; color: white; background-color: rgb(47, 146, 192); padding: 5px; border: 1px solid rgb(31, 93, 134);"> Dermatología </h2>
+    
+        </ul>
+      </div>
+
+      
+
+
+
+
+
     <div class="row">
       <div class="album py-5">
         <div class="pb-3">
-          <h1 class="h3">Popular</h1>
+          <h1 class="h3" style=" text-align:center;font-weight: bold; color: rgb(47, 146, 192);">Nuestra plantilla al completo</h1>
+          <p> En Cit@Medica pensamos que todos y cada uno de los componentes de este equipo deben ser mostrados al público con orgullo, por lo que en esta sección encontrarás a todos y cada uno de los profesionales en el sector con los que contamos y en los que confiamos 
+            plenamente para que cuiden de su salud.</p>
         </div>
         {% if not products %}
-        <div class="col-12">There are currently no products active</div>
+        <div class="col-12">No disponemos actualmente de expertos</div>
         {% else %}
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
           {% for product in products %}
           <div class="col">
-            <div class="card border-0">
-              {% for image in product.product_image.all %}
-              {% if image.is_feature%}
-              <img class="img-fluid" alt="Responsive image" src="{{ image.image.url }}"
-                alt="{{ image.image.alt_text }}">
-              {% endif %}
-              {% endfor %}
-              <div class="card-body px-0">
-                <p class="card-text">
-                  <a class="text-dark text-decoration-none"
-                    href="{{ product.get_absolute_url }}">{{ product.title|slice:":50" }}...</a>
+            <div class="card border-0" >
+              
+              <img class="img-fluid" alt="Responsive image" src="{{ product.image.url }}"
+                alt="{{ product.name }}">
+              <div class="card-body">
+                <p class="card-text" style="text-align: center;">
+                  <a class="text-white text-decoration-none" style="font-weight: bold;"
+                    href="{{ product.get_absolute_url }}">{{ product.name|slice:":50" }} {{ product.surname|slice:":50" }}</a>
                 </p>
-                <div class="fw-bold">£{{product.regular_price}}</div>
+                <div class="fw-bold" style="color: #fff;">{{product.regular_price}}€</div>
               </div>
             </div>
           </div>
@@ -47,5 +186,8 @@
       </div>
     </div>
   </div>
+
+  
+  
 
   {% endblock %}
