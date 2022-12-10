@@ -95,7 +95,7 @@ def event(request, event_id=None):
         
         carrito= basket_add2(request,id_medico,fecha)
         
-        return HttpResponseRedirect(reverse('catalogue:calendar'))
+        return HttpResponseRedirect(reverse('basket:basket_summary'))
     return render(request, 'catalogue/event.html', {'form': form, 'email': request.session["email"]})
 
     #   print form['my_field'].value()

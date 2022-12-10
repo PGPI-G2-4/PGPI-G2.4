@@ -1,4 +1,4 @@
-from django.forms import ModelForm, DateInput , EmailInput
+from django.forms import ModelForm, DateInput , EmailInput, TextInput
 from ecommerce.apps.catalogue.models import Event
 
 class EventForm(ModelForm):
@@ -7,7 +7,9 @@ class EventForm(ModelForm):
     # datetime-local is a HTML5 input type, format to make date time show on fields
     widgets = {
       'start_time': DateInput(attrs={'type': 'datetime-local' , 'id': 'fecha_cita'}, format='%Y-%m-%dT%H:%M'),
-      'client_email': EmailInput(attrs={'type' : 'hidden' ,'id': 'email', })
+      'client_email': EmailInput(attrs={'type' : 'hidden' ,'id': 'email', }),
+      'Medico' : TextInput(attrs={'readonly' : 'readonly' ,'id': 'id_Medico', }),
+      'Departamento': TextInput(attrs={'readonly' : 'readonly' ,'id': 'id_Departamento', }),
     }
     fields = ['Medico', 'Departamento', 'start_time' , 'client_email']
 

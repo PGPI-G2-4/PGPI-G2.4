@@ -74,7 +74,7 @@
             <li><a href='/' id="home">Menú principal</a></li>
             
             <li>
-              <a href='/calendar/' id="home">Pide tu cita </a>
+              <a href='/calendar/' id="home">Calendario de Citas</a>
 
             </li>
           </ul>
@@ -111,15 +111,7 @@
           </div>
           <a type="button" role="button" href="{% url "basket:basket_summary" %}"
             class="btn btn-outline-secondary border-0 basket-btn">
-            {% with total_qty=basket|length %}
-            <div id="basket-qty" class="basket-qty">
-              {% if total_qty > 0 %}
-              {{ total_qty }}
-              {% else %}
-              0
-              {% endif %}
-            </div>
-            {% endwith %}
+
             <div>
               <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-cart3"
                 viewBox="0 0 16 16">
@@ -232,7 +224,7 @@ html {
       <div class="col-6 col-md">
         <h5>Sobre Nosotros</h5>
         <ul class="list-unstyled">
-          <li><a class="link-secondary text-decoration-none" href="terms/">Términos y condiciones</a></li>
+          <li><a class="link-secondary text-decoration-none" href="{% url 'terms:terms' %}">Términos y condiciones</a></li>
         </ul>
       </div>
       <div class="col-12">
