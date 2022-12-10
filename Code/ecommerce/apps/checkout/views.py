@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -67,13 +68,24 @@ def payment_selection(request):
 
 def payment_successful(request):
     basket = Basket(request)
-    send_confirmation_email(request.session["email"])
+    send_confirmation_email(request.session["email"], basket)
     basket.clear()
     return render(request, "checkout/payment_successful.html", {})
 
-def send_confirmation_email(email):
+def send_confirmation_email(email, basket):
     subject = "Gracias por confiar en CIT@MEDICA!"
     message = "Se ha realizado tu pedido. Si quieres revisar tus citas puedes hacerlo ingresando tu correo electrónico en la página de inicio."
+    message = message + "\n # Datos del pedido #"
+    message = message + "\n Fecha de pedido: " + str(datetime.now())
+    message = message + "\n Email: " + email
+    message = message + "\n # Productos #"
+    for item in basket:
+        message = message + "\n - " + item["product"].medic.name +" " +item["product"].medic.surname + " " + "Fecha: " + str(item["product"].date_time) +" " + "Precio: " + str(item["product"].medic.regular_price)
+    message = message + "\n # Total #"
+    message = message + "\n" + str(basket.get_total_price())
+
+    message = message + "\n Esperamos que tenga una buena experiencia con nosotros."
+    message = message + "\n Saludos, CIT@MEDICA"
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [email]
     send_mail(subject, message, email_from, recipient_list, auth_password=settings.EMAIL_HOST_PASSWORD)
