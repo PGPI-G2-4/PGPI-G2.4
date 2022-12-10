@@ -114,17 +114,7 @@ $(window).scroll(function(){
 </svg></span>
 
 <div class="container">
-  
-  <div class="alert alert-primary fw600 rounded-0 border-0 pb-3" role="alert">
-    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-info-circle me-2"
-      viewBox="0 0 16 16">
-      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-      <path
-        d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
-    </svg>
-    COVID-19 - <u>Pincha aquí para ver las últimas novedades</u> en nuestro centro médico, página web y centro de contacto. Gracias por su paciencia y comprensión.
-  </div>
-  <div class="container">
+
     <div class="slider">
       <h2 style="text-align: center; font-weight: bold; color: rgb(47, 146, 192);">Departamentos destacados de la semana</h2>
         <ul>
@@ -148,10 +138,44 @@ $(window).scroll(function(){
         </ul>
       </div>
 
-      
+    {% if "temporal" in email %}
+    <div class="m-4">
+            <h1 class="h5" style=" text-align:center;font-weight: bold; color: rgb(47, 146, 192);">¿Quieres consultar el estado de tus citas? Escriba aquí su dirección de correo electrónico</h1>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Correo Electrónico" aria-label="Recipient's username" aria-describedby="button-addon2"
+              id="set_email_button">
+              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Confirmar</button>
+            </div>
+    </div>
+
+
+    <script>
+    $(document).ready(function(){
+      $("#button-addon2").click(function(e){
+        var email = $("#set_email_button").val();
+        e.preventDefault();
+        if (email == "") {
+            alert("Por favor ingrese su correo electrónico");
+        }else{
+            $.ajax({
+              type: "POST",
+              url: '{% url "catalogue:set_session_email" %}',
+              data: {
+                 'email': email,
+                  'csrfmiddlewaretoken': '{{ csrf_token }}'
+              },
+                success: function(response){
+                window.location.href = "{% url 'catalogue:calendar' %}";
+              },
+            });
+        }
 
 
 
+      });
+    });
+    </script>
+    {% endif %}
 
 
     <div class="row">

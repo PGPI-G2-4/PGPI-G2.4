@@ -18,20 +18,22 @@ def product_all(request):
     # add a temporal email to the session
     if "email" not in request.session:
         request.session["email"] = datetime.now().strftime("%Y%m%d%H%M%S") + "@temporal.com"
-    return render(request, "catalogue/index.html", {"products": products})
+    return render(request, "catalogue/index.html", {"products": products, "email": request.session["email"]})
 
-
+def set_session_email(request):
+    request.session["email"] = request.POST["email"]
+    return HttpResponseRedirect(reverse('catalogue:calendar'))
 
 
 def category_list(request, name=None):
     category = get_object_or_404(Department, name=name)
     products = Medic.objects.filter(department=category)
-    return render(request, "catalogue/category.html", {"category": category, "products": products})
+    return render(request, "catalogue/category.html", {"category": category, "products": products, "email": request.session["email"]})
 
 
 def product_detail(request, slug):
     product = get_object_or_404(Medic, slug=slug)
-    return render(request, "catalogue/single.html", {"product": product})
+    return render(request, "catalogue/single.html", {"product": product, "email": request.session["email"]})
 
 
 class CalendarView(generic.ListView):
@@ -46,6 +48,7 @@ class CalendarView(generic.ListView):
         context['calendar'] = mark_safe(html_cal)
         context['prev_month'] = prev_month(d)
         context['next_month'] = next_month(d)
+        context['email'] = self.request.session["email"]
         return context
 
 def get_date(req_day):
@@ -93,7 +96,7 @@ def event(request, event_id=None):
         carrito= basket_add2(request,id_medico,fecha)
         
         return HttpResponseRedirect(reverse('catalogue:calendar'))
-    return render(request, 'catalogue/event.html', {'form': form})
+    return render(request, 'catalogue/event.html', {'form': form, 'email': request.session["email"]})
 
     #   print form['my_field'].value()
     #     print form.data['my_field']

@@ -24,23 +24,23 @@
 {% endif %}
   <div class="row g-3">
     {% if deliveryoptions|length == 0 %}
-    <div class="col-12">There are no delivery options <a href="{% url 'store:store_home' %}">Shop</a></div>
+    <div class="col-12">There are no delivery options <a href="{% url 'catalogue:store_home' %}">Shop</a></div>
     {% else %}
     <div class="col-md-4 col-lg-4 order-md-last p-0 order-3">
       <div class="d-flex bd-highlight ms-0">
         <div class="p-2 flex-grow-1 bd-highlight">Sub Total:</div>
-        <div class="p-2 bd-highlight"><span class="fw-bold h5">£</span><span id="sub_total"
-            class="fw-bold h5">{{basket.get_subtotal_price}}</span></div>
+        <div class="p-2 bd-highlight"><span id="sub_total"
+            class="fw-bold h5">{{basket.get_subtotal_price}}</span><span class="fw-bold h5">€</span></div>
       </div>
       <div class="d-flex bd-highlight">
         <div class="p-2 flex-grow-1 bd-highlight">Delivery Cost:</div>
-        <div class="p-2 bd-highlight"><span class="fw-bold h5">£</span><span id="delivery_price"
-            class="fw-bold h5">{{basket.get_delivery_price}}</span></div>
+        <div class="p-2 bd-highlight"><span id="delivery_price"
+            class="fw-bold h5">{{basket.get_delivery_price}}</span><span class="fw-bold h5">€</span></div>
       </div>
       <div class="d-flex bd-highlight">
         <div class="p-2 flex-grow-1 bd-highlight">Total:</div>
-        <div class="p-2 bd-highlight"><span class="fw-bold h5">£</span><span id="total"
-            class="fw-bold h5">{{basket.get_total_price}}</span></div>
+        <div class="p-2 bd-highlight"><span id="total"
+            class="fw-bold h5">{{basket.get_total_price}}</span><span class="fw-bold h5">€</span></div>
       </div>
       <a role="button" href="{% url "checkout:delivery_address" %}" class="btn btn-success fw-bold w-100"
         type="button">Pay Securely</a>
@@ -88,6 +88,7 @@
       success: function (json) {
         document.getElementById("total").innerHTML = json.total;
         document.getElementById("delivery_price").innerHTML = json.delivery_price;
+        document.getElementById("sub_total").innerHTML = json.sub_total;
       },
       error: function (xhr, errmsg, err) {},
     });

@@ -134,7 +134,7 @@ class Basket:
     def clear(self):
         # Remove basket from session
         del self.session[settings.BASKET_SESSION_ID]
-        del self.session["address"]
+        del self.session["email"]
         del self.session["purchase"]
         self.save()
 

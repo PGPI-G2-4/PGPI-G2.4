@@ -8,9 +8,9 @@ class DeliveryOptions(models.Model):
     """
 
     DELIVERY_CHOICES = [
-        ("IS", "In Store"),
-        ("HD", "Home Delivery"),
-        ("DD", "Digital Delivery"),
+        ("MAIL", "We will send it to you by mail"),
+        ("REGISTER YOUR DATA", "Keep track of all your appointments by providing some information"),
+        ("SMS", "We will send you an SMS with a link to your appointment"),
     ]
 
     delivery_name = models.CharField(
