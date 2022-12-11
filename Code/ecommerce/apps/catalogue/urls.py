@@ -10,6 +10,11 @@ urlpatterns = [
     path("shop/<str:name>/", views.category_list, name="category_list"),
     path('event/new/', views.event, name='event_new'),
     path("calendar/", views.CalendarView.as_view(), name="calendar"),
+<<<<<<< HEAD
     path("set_session_email/", views.set_session_email, name="set_session_email"),
+=======
+    path("eventos/<int:incidencia_id>/", views.eventos, name="eventos"),
+    
+>>>>>>> develop
     
 ]

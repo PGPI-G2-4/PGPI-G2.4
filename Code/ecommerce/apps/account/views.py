@@ -8,12 +8,12 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from ecommerce.apps.catalogue.models import Medic
+from ecommerce.apps.catalogue.models import Event, Medic
 from ecommerce.apps.orders.models import Appointment
 from ecommerce.apps.orders.views import user_orders
 
-from .forms import RegistrationForm, UserEditForm
-from .models import Customer
+from .forms import IncidenciaForm, RegistrationForm, UserEditForm
+from .models import Customer, Incidencia
 from .tokens import account_activation_token
 
 
@@ -110,3 +110,30 @@ def account_activate(request, uidb64, token):
         return redirect("account:dashboard")
     else:
         return render(request, "account/registration/activation_invalid.html")
+
+
+def incidencia(request, incidencia_id=None):
+    
+    instance = Incidencia()
+    if incidencia_id:
+        instance = get_object_or_404(incidencia, pk=incidencia_id)
+    else:
+        instance = Incidencia()
+    
+    instance.client_email=request.session["email"]
+    
+    form = IncidenciaForm(request.POST or None, instance=instance)
+    if request.POST and form.is_valid():
+        incidencia=form.save()
+        tipo_elegido=form['Tipo'].value()
+        if tipo_elegido == '1':
+            id=incidencia.id
+            print(id)
+            return HttpResponseRedirect(reverse('catalogue:eventos',args=[id] ))
+        
+        else:
+            return HttpResponseRedirect(reverse('catalogue:calendar'))
+    
+    return render(request, 'account/incidencia.html', {'form': form})
+
+

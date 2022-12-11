@@ -3,8 +3,8 @@
 
 {% block content %}
 <div class="clearfix">
-	<a class="btn btn-info left" href="{'% url 'catalogue:calendar' %}?{'{ prev_month }}"> Previous Month </a>
-	<a class="btn btn-info right"  href="{'% url 'catalogue:calendar' %}?{'{ next_month }}"> Next Month </a>
+	<a class="btn btn-info left" href="{'% url 'catalogue:calendar' %}?calendar={{ prev_month }}"> Previous Month </a>
+	<a class="btn btn-info right"  href="{'% url 'catalogue:calendar' %}?calendar{{ next_month }}"> Next Month </a>
 </div>  
 
 <h1 style="text-align: center;">Calendario de citas médicas</h1>
