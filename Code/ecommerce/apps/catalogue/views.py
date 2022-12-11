@@ -60,15 +60,19 @@ def product_detail(request, slug, appointment_id=None):
         return render(request, "catalogue/single.html", {"product": product, "appointment": appointment, "email": request.session["email"]})
     return render(request, "catalogue/single.html", {"product": product, "email": request.session["email"]})
 
-
 class CalendarView(generic.ListView):
     model = Event
     template_name = 'catalogue/calendar.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        d = get_date(self.request.GET.get('day', None))
-        cal = Calendar(d.year, d.month)
+        if self.request.GET.get('month'):
+            d = get_date(self.request.GET.get('month'))
+            cal = Calendar(d.year, d.month)
+        else:
+            d = get_date(self.request.GET.get('day', None))
+            cal = Calendar(d.year, d.month)
+
         html_cal = cal.formatmonth(self.request,withyear=True)
         context['calendar'] = mark_safe(html_cal)
         context['prev_month'] = prev_month(d)

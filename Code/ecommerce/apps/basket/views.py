@@ -2,7 +2,7 @@ from datetime import datetime
 
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
-from ecommerce.apps.catalogue.models import Department, Medic
+from ecommerce.apps.catalogue.models import Department, Medic, Event
 
 from .basket import Basket
 from ..orders.models import Appointment
@@ -42,8 +42,15 @@ def basket_delete(request):
     if request.POST.get("action") == "post":
         product_id = int(request.POST.get("appointment_id"))
         basket.delete(product=product_id)
+        appointment = get_object_or_404(Appointment, id=product_id)
+
+        # Delete Event with same email and date_time
+        Event.objects.get(client_email=request.session["email"], start_time=appointment.date_time).delete()
+
         # Delete appointment from database
-        Appointment.objects.get(id=product_id).delete()
+        appointment.delete()
+
+
 
         basketqty = basket.__len__()
         baskettotal = basket.get_total_price()
