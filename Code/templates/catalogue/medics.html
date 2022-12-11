@@ -1,6 +1,6 @@
 {% extends "../base.html" %}
 {% block title %}
-{% if category %}{{ category.name }}{% else %}Products{% endif %}
+Products
 {% endblock %}
 {% block content %}
 
@@ -69,7 +69,8 @@ background-color: rgb(47, 146, 192);
 }
 
 .card:hover{
-background-color: rgb(37, 110, 145);
+background-color: rgb(28, 82, 107);
+
 padding: 2px;
 }
 .card:hover .card-body{
@@ -79,34 +80,30 @@ opacity: 1;
 
 </style>
 
-<div class="container" style="max-width: 1000px">
-  <div class="col-12">
-    <h1 class="h2" style=" text-align:center;font-weight: bold; color: rgb(47, 146, 192);">{{ category.name|title }}</h1>
-  </div>
-  
-    <p style=" text-align:center; ">Selección de especialistas en el ámbito de {{ category.name|title }}</p>
-  
-  <hr />
-</div>
+
 <div class="container">
   <div class="row">
     <div class="album">
       {% if not products %}
-      <div class="col-12">There are currently no products active <a href="{% url 'catalogue:store_home' %}">Home</a></div>
+      <div class="col-12">No hemos encontrado médicos que coincidan con tu búsqueda, prueba a buscar de nuevo o vuelve al <a href="{% url 'catalogue:store_home' %}">Menú Principal</a></div>
       {% else %}
+      <div class="col-12" style="text-align: center;">Tras analizar tu búsqueda, estos son los especialistas más cercanos a tus intereses</div><br>
+      <hr />
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         {% for product in products %}
+        
+
         <div class="col">
-          <div class="card border-0">
-
-            <img class="img-fluid" alt="Responsive image" src="{{ product.image.url }}" alt="{{ product.name }}">
-
-            <div class="card-body ">
-              <p class="card-text" style="text-align: center; font-weight: bold;">
-                <a class="text-white text-decoration-none" href="{{ product.get_absolute_url }}">{{ product.name }} {{ product.surname }}</a>
+          <div class="card border-0" >
+            
+            <img class="img-fluid" alt="Responsive image" src="{{ product.image.url }}"
+              alt="{{ product.name }}">
+            <div class="card-body">
+              <p class="card-text" style="text-align: center;">
+                <a class="text-white text-decoration-none" style="font-weight: bold;"
+                  href="{{ product.get_absolute_url }}">{{ product.name|slice:":50" }} {{ product.surname|slice:":50" }}</a>
               </p>
-              <div class="fw-bold" style="color: #fff;">£{{product.regular_price}}</div>
-
+              <div class="fw-bold" style="color: #fff;">{{product.regular_price}}€</div>
             </div>
           </div>
         </div>

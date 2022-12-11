@@ -18,12 +18,25 @@
     <div class="col-md-5 ps-3 col-lg-5 order-md-last p-0 order-1">
       <div class="d-grid gap-2">
         <div class="d-flex d-flex-inline justify-content-between">
-          <div><span class="h3">{{ product.regular_price }}€</span>
+          <div><span class="h3" >{{ product.regular_price }}€</span>
             <p class="text-muted">includes tax</p>
+            
+            
+              {% if not appointment %}
+              
+                <a class="btn btn-info right" id="cita" href="{% url 'catalogue:event_new'  %}?medic={{product.slug}}"> Selecciona la fecha de tu cita aqui </a>
+             {% else %}
+                 <p>Tienes una cita prevista para: </p>
+                 <p><strong class="h3 text-primary">{{appointment.date_time |date:"D d M, Y H:i" }}</strong></p>
+
+            {% endif %}
           </div>
-          <div>
-                <a class="btn btn-info right" id="cita" href="{% url 'catalogue:event_new'  %}?medic={{product.slug}}"> Selecciona la fecha de tu cita aqui! </a>
-          </div>
+
+          
+            
+
+          
+
         </div>                                      
         <hr>
 

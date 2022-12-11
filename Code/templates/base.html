@@ -98,6 +98,18 @@
             </div>
             <span class="fs15 fw500">Shop</span>
           </button>
+          <form id="formulario" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+          method="GET">
+            
+            <div class="input-group" id="buscar">
+              <input type="text"  class="form-control bg-light border-0 small" placeholder="Busca a un especialista" name="buscar" value="{{ request.GET.buscar }}">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">
+                  <i class="fas fa-search fa-sm"></i>
+                </button>
+              </div>
+            </div>
+          </form>
           <div>
             <div class="collapse navbar-collapse" id="navbarSupportedContent2">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -158,6 +170,10 @@
   </header>
 
 <style> 
+
+#buscar{
+  width: 120% !important;
+}
 #hola{
   
   width: 250px;
