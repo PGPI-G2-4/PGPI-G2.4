@@ -1,3 +1,4 @@
+
 import uuid
 
 from django.contrib.auth.models import (
@@ -10,6 +11,14 @@ from django.core.mail import send_mail
 from django.core.validators import validate_email
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
+from ecommerce.apps.catalogue.models import Event
+
+tipo_incidencia=[
+    (1,'Anular cita'),
+    (2, 'Cambio de mi perfil'),
+    (3, 'Otros')
+]
 
 
 # class CustomAccountManager(BaseUserManager):
@@ -77,6 +86,26 @@ class Customer(AbstractUser):
 
     def __str__(self):
         return self.first_name + " " + self.last_name
+
+
+
+class Incidencia(models.Model):
+    
+    id = models.AutoField(primary_key=True)
+    client_email = models.EmailField(_("email address"))
+    Tipo= models.IntegerField(
+        null=False , blank=False,
+        choices= tipo_incidencia
+    )
+    Descripcion = models.CharField(max_length=1000)
+    evento = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="evento",null=True)
+    
+    
+    
+
+
+
+
 
 
 # class Address(models.Model):

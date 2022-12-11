@@ -6,7 +6,6 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
-from ecommerce.apps.account.models import Customer
 from mptt.models import MPTTModel, TreeForeignKey
 
 
@@ -45,7 +44,7 @@ class Medic(models.Model):
 
 class Event(models.Model):
 
-   
+    id = models.AutoField(primary_key=True)
     Medico  = models.CharField(max_length=200)
     Departamento = models.CharField(max_length=200)
     start_time = models.DateTimeField()
