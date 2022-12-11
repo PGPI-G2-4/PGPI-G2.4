@@ -1,5 +1,7 @@
 import calendar
-from django.shortcuts import HttpResponseRedirect, get_object_or_404, render 
+from django.shortcuts import HttpResponseRedirect, get_object_or_404, render
+from ecommerce.apps.account.models import Incidencia 
+from django.http import JsonResponse
 
 from ecommerce.apps.basket.views import basket_add2
 
@@ -87,7 +89,6 @@ def event(request, event_id=None):
         departamento=form['Departamento'].value()
         id_departamento=Department.objects.filter(name__contains= departamento)[0]
         medico= form['Medico'].value()
-        print(form['client_email'].value())
         id_medico=Medic.objects.filter(name__contains= medico.split(' ')[0]  ,department=departamento)[0].id
         
         carrito= basket_add2(request,id_medico,fecha)
@@ -95,5 +96,23 @@ def event(request, event_id=None):
         return HttpResponseRedirect(reverse('catalogue:calendar'))
     return render(request, 'catalogue/event.html', {'form': form})
 
-    #   print form['my_field'].value()
-    #     print form.data['my_field']
+
+def eventos(request, incidencia_id=None):
+    eventos= Event.objects.filter(client_email=request.session["email"])
+    
+    if request.POST.get("action") == "post":
+
+        print(incidencia_id)
+        event_id = int(request.POST.get("evento_id"))
+        incidencia = get_object_or_404(Incidencia, id=incidencia_id)
+        incidencia.evento=get_object_or_404(Event, id=event_id)
+        incidencia.id=incidencia_id
+        incidencia.save()
+    
+        return JsonResponse({'incidencia': incidencia_id})
+    
+    
+    return render(request,'catalogue/eventos.html',{'eventos': eventos, 'incidencia_id': incidencia_id} )
+
+    
+   

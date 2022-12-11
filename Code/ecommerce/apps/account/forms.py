@@ -1,8 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import (AuthenticationForm, PasswordResetForm,
                                        SetPasswordForm)
-
-from .models import Customer#, Address
+                                       
+from django.forms import ModelForm, DateInput , EmailInput
+from .models import Customer, Incidencia  #, Address
 
 # class UserAddressForm(forms.ModelForm):
 #     class Meta:
@@ -134,3 +135,18 @@ class UserEditForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['user_name'].required = True
         self.fields['email'].required = True
+
+
+class IncidenciaForm(ModelForm):
+  class Meta:
+    model = Incidencia
+    
+    widgets = {
+      'client_email': EmailInput(attrs={'type' : 'hidden' ,'id': 'email', })
+    }
+    fields = ['Tipo', 'Descripcion' , 'client_email']
+
+  def __init__(self ,*args, **kwargs ):
+    super(IncidenciaForm, self).__init__(*args, **kwargs)
+   
+    
