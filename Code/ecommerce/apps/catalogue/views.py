@@ -11,16 +11,25 @@ from django.utils.safestring import mark_safe
 from django.http import HttpResponse
 from django.views import generic
 from .models import *
+from django.db.models import Q
 from datetime import date, datetime, timedelta
 
 from ..orders.models import Appointment
 
 
 def product_all(request):
+    busqueda = request.GET.get("buscar")
     products = Medic.objects.all()
     # add a temporal email to the session
     if "email" not in request.session:
         request.session["email"] = datetime.now().strftime("%Y%m%d%H%M%S") + "@temporal.com"
+    if busqueda:
+        medico = Medic.objects.filter(
+            Q(name__icontains = busqueda) | 
+            Q(surname__icontains = busqueda)
+        ).distinct()
+        print(medico)
+        return render(request, 'catalogue/medics.html', {'products':medico})
     return render(request, "catalogue/index.html", {"products": products, "email": request.session["email"]})
 
 def set_session_email(request):
@@ -29,8 +38,16 @@ def set_session_email(request):
 
 
 def category_list(request, name=None):
+    busqueda = request.GET.get("buscar")
     category = get_object_or_404(Department, name=name)
     products = Medic.objects.filter(department=category)
+    if busqueda:
+        medico = Medic.objects.filter(
+            Q(name__icontains = busqueda) | 
+            Q(surname__icontains = busqueda)
+        ).distinct()
+        print(medico)
+        return render(request, 'catalogue/medics.html', {'products':medico})
     return render(request, "catalogue/category.html", {"category": category, "products": products, "email": request.session["email"]})
 
 
