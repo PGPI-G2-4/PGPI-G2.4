@@ -1,0 +1,50 @@
+{% extends "../base.html" %}
+{% block content %}
+
+
+{% for c in eventos %}
+
+<div>
+    <table class="default">
+      
+        <tr>
+      
+          <td><li>{{ c.Medico }} -{{c.Departamento}} - {{c.start_time}} <a class="btn btn-info right incidencia_boton"  data-evento-id= "{{c.id}}"  data-incidencia-id= "{{incidencia_id}}" > Seleccion esta cita</a></li> </td>
+
+        </tr>
+      </table>
+
+
+
+</div>
+{% endfor %}
+
+
+<script>
+      
+  $(document).ready(function () {
+    $('.incidencia_boton').click(function  (evento) {
+        const event_id = $(this).data("evento-id");
+        const incidencia_id = $(this).data("incidencia-id");
+        evento.preventDefault();
+        $.ajax({
+        url: "{% url 'catalogue:eventos' 999 %}".replace(999, incidencia_id),
+        type: "POST",
+        data: {
+          'evento_id': event_id,
+          'incidencia_id': incidencia_id,
+          csrfmiddlewaretoken: "{{csrf_token}}",
+          'action': 'post'
+        }, 
+        dataType: 'json',
+        success: function (json) {
+
+        location.href = "{% url 'catalogue:calendar' %}";
+
+},
+        error: function (xhr, errmsg, err) {},
+      });
+    });
+  });
+</script>
+{% endblock %}
