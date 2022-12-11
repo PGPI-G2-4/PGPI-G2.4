@@ -52,7 +52,15 @@ def category_list(request, name=None):
 
 
 def product_detail(request, slug, appointment_id=None):
+    busqueda = request.GET.get("buscar")
     product = get_object_or_404(Medic, slug=slug)
+    if busqueda:
+        medico = Medic.objects.filter(
+            Q(name__icontains = busqueda) | 
+            Q(surname__icontains = busqueda)
+        ).distinct()
+        print(medico)
+        return render(request, 'catalogue/medics.html', {'products':medico})
     if appointment_id:
         appointment = get_object_or_404(Appointment, pk=appointment_id)
         return render(request, "catalogue/single.html", {"product": product, "appointment": appointment, "email": request.session["email"]})
