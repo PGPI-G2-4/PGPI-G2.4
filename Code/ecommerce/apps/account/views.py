@@ -116,7 +116,7 @@ def incidencia(request, incidencia_id=None):
     
     instance = Incidencia()
     if incidencia_id:
-        instance = get_object_or_404(incidencia, pk=incidencia_id)
+        instance = get_object_or_404(Incidencia, pk=incidencia_id)
     else:
         instance = Incidencia()
     
