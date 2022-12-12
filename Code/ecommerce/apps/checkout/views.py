@@ -61,7 +61,7 @@ def delivery_address(request):
 
 def payment_selection(request):
 
-    session = request.session
+    
     basket = Basket(request)
     if "temporal" in request.session["email"]:
         messages.success(request, "Please select address option")
