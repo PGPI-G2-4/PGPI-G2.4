@@ -1,32 +1,33 @@
 from django import forms
 from django.contrib.auth.forms import (AuthenticationForm, PasswordResetForm,
                                        SetPasswordForm)
+                                       
+from django.forms import ModelForm, DateInput , EmailInput
+from .models import Customer, Incidencia  #, Address
 
-from .models import Customer, Address
-
-class UserAddressForm(forms.ModelForm):
-    class Meta:
-        model = Address
-        fields = ["full_name", "phone", "address_line", "address_line2", "town_city", "postcode"]
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields["full_name"].widget.attrs.update(
-            {"class": "form-control mb-2 account-form", "placeholder": "Full Name"}
-        )
-        self.fields["phone"].widget.attrs.update({"class": "form-control mb-2 account-form", "placeholder": "Phone"})
-        self.fields["address_line"].widget.attrs.update(
-            {"class": "form-control mb-2 account-form", "placeholder": "Full Name"}
-        )
-        self.fields["address_line2"].widget.attrs.update(
-            {"class": "form-control mb-2 account-form", "placeholder": "Full Name"}
-        )
-        self.fields["town_city"].widget.attrs.update(
-            {"class": "form-control mb-2 account-form", "placeholder": "Full Name"}
-        )
-        self.fields["postcode"].widget.attrs.update(
-            {"class": "form-control mb-2 account-form", "placeholder": "Full Name"}
-        )
+# class UserAddressForm(forms.ModelForm):
+#     class Meta:
+#         # model = Address
+#         fields = ["full_name", "phone", "address_line", "address_line2", "town_city", "postcode"]
+#
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+#         self.fields["full_name"].widget.attrs.update(
+#             {"class": "form-control mb-2 account-form", "placeholder": "Full Name"}
+#         )
+#         self.fields["phone"].widget.attrs.update({"class": "form-control mb-2 account-form", "placeholder": "Phone"})
+#         self.fields["address_line"].widget.attrs.update(
+#             {"class": "form-control mb-2 account-form", "placeholder": "Full Name"}
+#         )
+#         self.fields["address_line2"].widget.attrs.update(
+#             {"class": "form-control mb-2 account-form", "placeholder": "Full Name"}
+#         )
+#         self.fields["town_city"].widget.attrs.update(
+#             {"class": "form-control mb-2 account-form", "placeholder": "Full Name"}
+#         )
+#         self.fields["postcode"].widget.attrs.update(
+#             {"class": "form-control mb-2 account-form", "placeholder": "Full Name"}
+#         )
 
 
 
@@ -45,8 +46,6 @@ class UserLoginForm(AuthenticationForm):
 
 class RegistrationForm(forms.ModelForm):
 
-    user_name = forms.CharField(
-        label='Enter Username', min_length=4, max_length=50, help_text='Required')
     email = forms.EmailField(max_length=100, help_text='Required', error_messages={
         'required': 'Sorry, you will need an email'})
     password = forms.CharField(label='Password', widget=forms.PasswordInput)
@@ -55,14 +54,7 @@ class RegistrationForm(forms.ModelForm):
 
     class Meta:
         model = Customer
-        fields = ('user_name', 'email',)
-
-    def clean_username(self):
-        user_name = self.cleaned_data['user_name'].lower()
-        r = Customer.objects.filter(user_name=user_name)
-        if r.count():
-            raise forms.ValidationError("Username already exists")
-        return user_name
+        fields = ('email',)
 
     def clean_password2(self):
         cd = self.cleaned_data
@@ -79,8 +71,6 @@ class RegistrationForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['user_name'].widget.attrs.update(
-            {'class': 'form-control mb-3', 'placeholder': 'Username'})
         self.fields['email'].widget.attrs.update(
             {'class': 'form-control mb-3', 'placeholder': 'E-mail', 'name': 'email', 'id': 'id_email'})
         self.fields['password'].widget.attrs.update(
@@ -134,3 +124,18 @@ class UserEditForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['user_name'].required = True
         self.fields['email'].required = True
+
+
+class IncidenciaForm(ModelForm):
+  class Meta:
+    model = Incidencia
+    
+    widgets = {
+      'client_email': EmailInput(attrs={'type' : 'hidden' ,'id': 'email', })
+    }
+    fields = ['Tipo', 'Descripcion' , 'client_email']
+
+  def __init__(self ,*args, **kwargs ):
+    super(IncidenciaForm, self).__init__(*args, **kwargs)
+   
+    

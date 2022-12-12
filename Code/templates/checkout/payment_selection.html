@@ -5,10 +5,10 @@
 
 <div class="container">
   <div class="col-12">
-     <h1 class="h2">Payment Selection</h1>
+     <h1 class="h2">Selección del Método de pago</h1>
   </div>
   <div class="col-12">
-    <p>Please select your payment option</p>
+    <p>Por favor, escoja su método de pago preferido</p>
   </div>
   <hr />
 </div>
@@ -18,86 +18,107 @@
     <div class="col-md-4 col-lg-4 order-md-last p-0 order-3">
       <div class="d-flex bd-highlight ms-0">
         <div class="p-2 flex-grow-1 bd-highlight">Sub Total:</div>
-        <div class="p-2 bd-highlight"><span class="fw-bold h5">£</span><span id="sub_total"
-            class="fw-bold h5">{{basket.get_subtotal_price}}</span></div>
+        <div class="p-2 bd-highlight"><span id="sub_total"
+            class="fw-bold h5">{{basket.get_subtotal_price}}</span><span class="fw-bold h5">€</span></div>
       </div>
       <div class="d-flex bd-highlight">
-        <div class="p-2 flex-grow-1 bd-highlight">Delivery Cost:</div>
-        <div class="p-2 bd-highlight"><span class="fw-bold h5">£</span><span id="delivery_price"
-            class="fw-bold h5">{{basket.get_delivery_price}}</span></div>
+        <div class="p-2 flex-grow-1 bd-highlight">Coste de Envío:</div>
+        <div class="p-2 bd-highlight"><span id="delivery_price"
+            class="fw-bold h5">{{basket.get_delivery_price}}</span><span class="fw-bold h5">€</span></div>
       </div>
       <div class="d-flex bd-highlight">
         <div class="p-2 flex-grow-1 bd-highlight">Total:</div>
-        <div class="p-2 bd-highlight"><span class="fw-bold h5">£</span><span id="total"
-            class="fw-bold h5">{{basket.get_total_price}}</span></div>
+        <div class="p-2 bd-highlight"><span id="total"
+            class="fw-bold h5">{{basket.get_total_price}}</span><span class="fw-bold h5">€</span></div>
       </div>
     </div>
+
+      <div class="card mb-3 border-1 rounded-0 product-item me-md-4" data-index="1">
+        <div class="row g-0">
+          <div class="col-md-2 ps-3 ps-md-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-paypal mt-2"
+              viewBox="0 0 16 16">
+                <path
+                    d="M14.06 3.713c.12-1.071-.093-1.832-.702-2.526C12.628.356 11.312 0 9.626 0H4.734a.7.7 0 0 0-.691.59L2.005 13.509a.42.42 0 0 0 .415.486h2.756l-.202 1.28a.628.628 0 0 0 .62.726H8.14c.429 0 .793-.31.862-.731l.025-.13.48-3.043.03-.164.001-.007a.351.351 0 0 1 .348-.297h.38c1.266 0 2.425-.256 3.345-.91.379-.27.712-.603.993-1.005a4.942 4.942 0 0 0 .88-2.195c.242-1.246.13-2.356-.57-3.154a2.687 2.687 0 0 0-.76-.59l-.094-.061ZM6.543 8.82a.695.695 0 0 1 .321-.079H8.3c2.82 0 5.027-1.144 5.672-4.456l.003-.016c.217.124.4.27.548.438.546.623.679 1.535.45 2.71-.272 1.397-.866 2.307-1.663 2.874-.802.57-1.842.815-3.043.815h-.38a.873.873 0 0 0-.863.734l-.03.164-.48 3.043-.024.13-.001.004a.352.352 0 0 1-.348.296H5.595a.106.106 0 0 1-.105-.123l.208-1.32.845-5.214Z" />
+            </svg>
+          </div>
+          <div class="col-md-9 ps-md-1">
+            <div class="card-body p-1">
+              <p class="card-text ps-2 mb-1 pt-1 fw-bold">Paypal</p>
+              <p class="card-text ps-2 pb-3">Se procederá a la vista de pago de paypal</p>
+            </div>
+          </div>
+          <div class="col-md-1 ps-md-1">
+            <input class="align-middle h-100" type="radio" name="deliveryOption" id="1"
+              value="1">
+          </div>
+        </div>
+      </div>
+
+        <div class="card mb-3 border-1 rounded-0 product-item me-md-4" data-index="2">
+            <div class="row g-0">
+            <div class="col-md-2 ps-3 ps-md-4">
+                <svg xmlns="http://www.w3.org/2000/svg"  width="40" height="40"  fill="currentColor" class="bi bi-credit-card-2-back-fill" viewBox="0 0 16 16">
+                  <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5H0V4zm11.5 1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-2zM0 11v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1H0z"/>
+                </svg>
+
+            </div>
+            <div class="col-md-9 ps-md-1">
+                <div class="card-body p-1">
+                <p class="card-text ps-2 mb-1 pt-1 fw-bold">Mastercard</p>
+                <p class="card-text ps-2 pb-3">Se procederá a la vista de pago de Mastercard</p>
+                </div>
+            </div>
+            <div class="col-md-1 ps-md-1">
+                <input class="align-middle h-100" type="radio" name="deliveryOption" id="2"
+                value="2">
+            </div>
+
+            </div>
+            </div>
+
+      <div class="card mb-3 border-1 rounded-0 product-item me-md-4" data-index="3">
+            <div class="row g-0">
+                <div class="col-md-2 ps-3 ps-md-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-credit-card-2-front" viewBox="0 0 16 16">
+                      <path d="M14 3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12zM2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2z"/>
+                      <path d="M2 5.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5z"/>
+                    </svg>
+                </div>
+                <div class="col-md-9 ps-md-1">
+                <div class="card-body p-1">
+                    <p class="card-text ps-2 mb-1 pt-1 fw-bold">VISA</p>
+                    <p class="card-text ps-2 pb-3">Se procederá a la vista de pago con VISA</p>
+                </div>
+                </div>
+                <div class="col-md-1 ps-md-1">
+                <input class="align-middle h-100" type="radio" name="deliveryOption" id="3"
+                    value="3">
+                </div>
+            </div>
+        </div>
+
+
     <div class="col-md-7 col-lg-8 pe-0 pe-md-5">
-      <div id="paypal-button-container"></div>
+      <div id="confirm_payment_button_div"></div>
     </div>
+
   </div>
 </div>
-<script
-  src="https://www.paypal.com/sdk/js?client-id=AZQiAqo_G8vygoAIT9tAL-Z6MQd49xERaY6a3N0ijCRXkubEyMnylsk1qjxNIFM2iAFomcSTfq4yW47O&currency=GBP"
-  data-sdk-integration-source="button-factory">
+
+<script>
+
+ $('input[type=radio][name=deliveryOption]').on('change', function(e) {
+     e.preventDefault();
+     // Create a button and render it in the `confirm_payment_button` div
+     document.getElementById("confirm_payment_button_div").innerHTML = '' +
+         '<button class="btn btn-primary btn-lg btn-block" id="confirm_payment_button">Confirmar Pago</button>';
+ });
+
+ // When confirm payment button is clicked ref to payment success page
+    document.getElementById("confirm_payment_button_div").addEventListener("click", function() {
+       location.href = "{% url 'checkout:payment_successful' %}";
+    });
 </script>
-    <script>
-  function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-      var cookies = document.cookie.split(';');
-      for (var i = 0; i < cookies.length; i++) {
-        var cookie = cookies[i].trim();
-        if (cookie.substring(0, name.length + 1) === (name + '=')) {
-          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-          break;
-        }
-      }
-    }
-    return cookieValue;
-  }
-  var csrftoken = getCookie('csrftoken');
-
-
-
-  function initPayPalButton() {
-    paypal.Buttons({
-      style: {
-        shape: 'rect',
-        color: 'gold',
-        layout: 'vertical',
-        label: 'paypal',
-
-      },
-    createOrder: function (data, actions) {
-        return actions.order.create({
-          purchase_units: [{
-            "amount": {
-              "currency_code": "GBP",
-              "value": '{{basket.get_total_price}}'
-            }
-          }]
-        });
-      },
-    onApprove: function (data) {
-        var url = "{% url 'checkout:payment_complete' %}"
-        return fetch(url, {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json',
-            'X-CSRFToken': csrftoken,
-          },
-          body: JSON.stringify({
-            orderID: data.orderID
-          })
-        }).then(function () {
-          location.href = '{% url 'checkout:payment_successful' %}';
-        })
-      },
-    }).render('#paypal-button-container');
-  }
-  initPayPalButton();
-
-    </script>
 
 {% endblock %}

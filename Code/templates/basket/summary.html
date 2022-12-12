@@ -5,50 +5,31 @@
 
 <div class="container">
   <div class="col-12">
-    <h1 class="h2">Your Basket</h1>
+    <h1 class="h2">Tu carrito</h1>
   </div>
   <div class="col-12">
-    <p>Manage your <b>items</b> in your basket</p>
+    <p>Gestiona tus <b>citas</b> en este carrito</p>
   </div>
   <hr />
 </div>
 <div class="container">
   <div class="row g-3">
     {% if basket|length == 0 %}
-    <div class="col-12">Your basket is empty <a href="{% url 'catalogue:store_home' %}">Shop</a></div>
+    <div class="col-12">Tu carrito se encuentra vacío <a href="{% url 'catalogue:store_home' %}">Compra ahora</a> para llenarlo</div>
     {% else %}
     <div class="col-12 bg-light p-3 d-flex justify-content-between">
       <div class="d-flex d-flex-inline">
-        <div class="pe-3">Order</div>
-        <div class="dropdown">
-          <a class="text-reset text-decoration-none dropdown-toggle" href="#" role="link" id="dropdownLink"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            Shipping options
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
-              class="bi bi-chevron-down" viewBox="0 0 16 16">
-              <path fill-rule="evenodd"
-                d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-            </svg>
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="dropdownLink">
-            <li class="item small">Next day delivery</li>
-            <li class="item small">Premimum delivery</li>
-          </ul>
-        </div>
+        <div class="pe-3">Sus citas</div>
+        
       </div>
       <div class="text-end">
-        <div class="">Sub Total: <span class="fw-bold">£</span>
-          <div id="subtotal" class="d-inline-flex fw-bold">{{basket.get_subtotal_price}}</div>
-        </div>
-        <div id="">Shipping <span class="small">(Next day delivery)</span>: <span class="fw-bold">£11.50</span></div>
-        <div class="pt-2">Total to pay: <span class="fw-bold h5">£</span><span id="total"
-            class="fw-bold h5">{{basket.get_total_price}}</span></div>
+        <div class="pt-2">Total: <span id="total"
+            class="fw-bold h5">{{basket.get_total_price}}</span> <span class="fw-bold h5">€</span></div>
       </div>
     </div>
     <div class="col-md-5 col-lg-4 order-md-last p-0 order-3">
       <div class="d-grid gap-2 ">
-        <a role="button" href="{% url 'checkout:deliverychoices' %}" class="btn btn-success fw-bold" type="button">Checkout Securely</a>
-        <button class="btn btn-light" type="button">Save for later</button>
+        <a role="button" href="{% url 'checkout:deliverychoices' %}" class="btn btn-success fw-bold" type="button">Pagar de forma segura</a>
       </div>
     </div>
     <div class="col-md-7 col-lg-8 p-0">
@@ -57,29 +38,19 @@
       <div class="card mb-3 border-0 product-item" data-index="{{product.id}}">
         <div class="row g-0">
           <div class="col-md-2 d-none d-md-block">
-            {% for image in product.product_image.all %}
-            {% if image.is_feature%}
-            <img class="img-fluid" alt="Responsive image" src="{{ image.image.url }}" alt="{{ image.image.alt_text }}">
-            {% endif %}
-            {% endfor %}
+            <img class="img-fluid" alt="Responsive image" src="{{ product.medic.image.url }}" alt="{{ product.medic.name}}">
           </div>
           <div class="col-md-10 ps-md-3">
             <div class="card-body p-1">
               <a class="text-decoration-none text-reset" href="{{item.product.get_absolute_url}}">
-                <p class="card-text pb-3">{{product.title}}</p>
+                <p class="card-text">{{product.medic.name}} {{ product.medic.surname }}</p>
+                  <p class="card-text pb-3 text-danger">{{product.medic.department}}</p>
               </a>
-              <label for="select">Qty</label>
-              <select id="select{{product.id}}" style="width:50px;height:31px;">
-                <option value="" selected disabled hidden>{{item.qty}}</option>
-                <option value="">1</option>
-                <option value="">2</option>
-                <option value="">3</option>
-                <option value="">4</option>
-              </select>
+              <input type="datetime-local" id="meeting-time{{ product.id }}" name="meeting-time" value="{{ product.date_time|date:'Y-m-d'}}T{{ product.date_time|time:'H:i' }}">
               <a type="button" id="update-button" data-index="{{product.id}}"
-                class="update-button text-decoration-none small ps-3">Update</a>
+                class="update-button text-decoration-none small ps-3"> Actualizar</a>
               <a type="button" id="delete-button" data-index="{{product.id}}"
-                class="delete-button text-decoration-none small">Delete</a>
+                class="delete-button text-decoration-none small">Borrar</a>
             </div>
           </div>
         </div>
@@ -94,18 +65,18 @@
 <script>
   // Delete Item
   $(document).on("click", ".delete-button", function (e) {
+      var appointment_id = $(this).data("index");
     e.preventDefault();
-    var prodid = $(this).data("index");
     $.ajax({
       type: "POST",
       url: '{% url "basket:basket_delete" %}',
       data: {
-        productid: $(this).data("index"),
+        'appointment_id': appointment_id,
         csrfmiddlewaretoken: "{{csrf_token}}",
         action: "post",
       },
       success: function (json) {
-        $('.product-item[data-index="' + prodid + '"]').remove();
+        $('.product-item[data-index="' + appointment_id + '"]').remove();
 
         if (json.qty == 0) {
           total = 0
@@ -125,20 +96,21 @@
 
   // Update Item
   $(document).on("click", ".update-button", function (e) {
-    e.preventDefault();
-    var prodid = $(this).data("index");
+      var prodid = $(this).data("index");
+      var meeting_time = $('#meeting-time' + prodid).val();
+      e.preventDefault();
     $.ajax({
       type: "POST",
       url: '{% url "basket:basket_update" %}',
       data: {
-        productid: $(this).data("index"),
-        productqty: $("#select" + prodid + " option:selected").text(),
-        csrfmiddlewaretoken: "{{csrf_token}}",
-        action: "post",
+         'appointment_id': prodid,
+        'meeting_time': meeting_time,
+        'csrfmiddlewaretoken': "{{csrf_token}}",
+        'action': "post",
       },
       success: function (json) {
 
-        total = (parseFloat(json.subtotal) + 11.50).toFixed(2);
+        total = (parseFloat(json.subtotal)).toFixed(2);
         document.getElementById("basket-qty").innerHTML = json.qty;
         document.getElementById("subtotal").innerHTML = json.subtotal;
         document.getElementById("total").innerHTML = total;

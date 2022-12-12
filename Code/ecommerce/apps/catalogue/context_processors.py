@@ -1,5 +1,5 @@
-from .models import Category
+from .models import Department
 
 
 def categories(request):
-    return {"categories": Category.objects.filter(level=0)}
+    return {"categories": Department.objects.all()}

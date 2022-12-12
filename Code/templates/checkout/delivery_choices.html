@@ -5,10 +5,10 @@
 
 <div class="container">
   <div class="col-12">
-    <h1 class="h2">Delivery Options</h1>
+    <h1 class="h2">Opciones de Envío</h1>
   </div>
   <div class="col-12">
-    <p>Select your delivery options</p>
+    <p>Selecciona una opción</p>
   </div>
   <hr />
 </div>
@@ -24,26 +24,26 @@
 {% endif %}
   <div class="row g-3">
     {% if deliveryoptions|length == 0 %}
-    <div class="col-12">There are no delivery options <a href="{% url 'store:store_home' %}">Shop</a></div>
+    <div class="col-12">There are no delivery options <a href="{% url 'catalogue:store_home' %}">Shop</a></div>
     {% else %}
     <div class="col-md-4 col-lg-4 order-md-last p-0 order-3">
       <div class="d-flex bd-highlight ms-0">
         <div class="p-2 flex-grow-1 bd-highlight">Sub Total:</div>
-        <div class="p-2 bd-highlight"><span class="fw-bold h5">£</span><span id="sub_total"
-            class="fw-bold h5">{{basket.get_subtotal_price}}</span></div>
+        <div class="p-2 bd-highlight"><span id="sub_total"
+            class="fw-bold h5">{{basket.get_subtotal_price}}</span><span class="fw-bold h5">€</span></div>
       </div>
       <div class="d-flex bd-highlight">
-        <div class="p-2 flex-grow-1 bd-highlight">Delivery Cost:</div>
-        <div class="p-2 bd-highlight"><span class="fw-bold h5">£</span><span id="delivery_price"
-            class="fw-bold h5">{{basket.get_delivery_price}}</span></div>
+        <div class="p-2 flex-grow-1 bd-highlight">Coste de Envío:</div>
+        <div class="p-2 bd-highlight"><span id="delivery_price"
+            class="fw-bold h5">{{basket.get_delivery_price}}</span><span class="fw-bold h5">€</span></div>
       </div>
       <div class="d-flex bd-highlight">
         <div class="p-2 flex-grow-1 bd-highlight">Total:</div>
-        <div class="p-2 bd-highlight"><span class="fw-bold h5">£</span><span id="total"
-            class="fw-bold h5">{{basket.get_total_price}}</span></div>
+        <div class="p-2 bd-highlight"><span id="total"
+            class="fw-bold h5">{{basket.get_total_price}}</span><span class="fw-bold h5">€</span></div>
       </div>
       <a role="button" href="{% url "checkout:delivery_address" %}" class="btn btn-success fw-bold w-100"
-        type="button">Pay Securely</a>
+        type="button">Paga de forma Segura</a>
     </div>
     <div class="col-md-7 col-lg-8">
       {% for option in deliveryoptions %}
@@ -59,7 +59,7 @@
           <div class="col-md-9 ps-md-1">
             <div class="card-body p-1">
               <p class="card-text ps-2 mb-1 pt-1 fw-bold">{{option.delivery_name}}</p>
-              <p class="card-text ps-2 pb-3">Your order should be delivered within {{option.delivery_timeframe}}</p>
+              <p class="card-text ps-2 pb-3">Tu pedido será recibido en {{option.delivery_timeframe}}</p>
             </div>
           </div>
           <div class="col-md-1 ps-md-1">
@@ -88,6 +88,7 @@
       success: function (json) {
         document.getElementById("total").innerHTML = json.total;
         document.getElementById("delivery_price").innerHTML = json.delivery_price;
+        document.getElementById("sub_total").innerHTML = json.sub_total;
       },
       error: function (xhr, errmsg, err) {},
     });
