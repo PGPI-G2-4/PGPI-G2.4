@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.shortcuts import render
+from ecommerce.apps.account.models import Customer
 from ecommerce.apps.basket.basket import Basket
 from ecommerce.apps.orders.models import Appointment, OrderItem
 
@@ -49,6 +50,10 @@ def delivery_address(request):
         messages.success(request, "Please select delivery option")
         return HttpResponseRedirect(request.META["HTTP_REFERER"])
 
+    if request.session["purchase"]["delivery_id"] == 1:
+        return render(request, "checkout/delivery_address.html", {"email": email, "basket": basket})
+    elif request.session["purchase"]["delivery_id"] == 2:
+        return render(request, "checkout/delivery_address_options.html", {"email": email, "basket": basket})
 
     return render(request, "checkout/delivery_address.html", {"email": email, "basket": basket})
 
@@ -90,6 +95,24 @@ def send_confirmation_email(email, basket):
     recipient_list = [email]
     send_mail(subject, message, email_from, recipient_list, auth_password=settings.EMAIL_HOST_PASSWORD)
 
+def rellenar(request):
+    email_session = request.session["email"]
+    basket = Basket(request)
+      
+    a = Customer.objects.filter(email=email_session)
+    num_items = len(a)
+
+    if num_items>0:
+        return render(request, "checkout/delivery_address_rellenar.html", {'opcion': False,"email": email_session, "basket": basket})
+
+    elif num_items==0:
+        return render(request, "checkout/delivery_address_rellenar.html", {'opcion': True,"email": email_session, "basket": basket})        
+        
+        
+        
+       
+    
+
 
 # Updates the session's email address to the new one
 def update_email(request):
@@ -100,7 +123,37 @@ def update_email(request):
         # Update the email address in the database
         Appointment.objects.filter(client_email=old_email).update(client_email=new_email)
         Event.objects.filter(client_email=old_email).update(client_email=new_email)
-
-        return HttpResponse("Success")
+        
+        return HttpResponse("Success")   
     else:
         return HttpResponse("Error")
+
+def update_email2(request):
+    if request.method == "POST":
+    
+        old_email = request.session["email"]
+        first_name1 = request.POST.get("first_name")
+        last_name1= request.POST.get("last_name")
+        age1 = request.POST.get("age")
+        gender1 = request.POST.get("gender")
+        alergies1 = request.POST.get("alergies")
+        pathologies1= request.POST.get("pathologies")
+        
+        user = Customer()
+        user.first_name = first_name1
+        user.last_name = last_name1
+        user.gender = gender1
+        user.alergies = alergies1
+        user.pathologies = pathologies1
+        user.age = age1
+        user.username = old_email
+        user.email = old_email
+        user.save()
+        
+        
+        return HttpResponse("Success")   
+    else:
+        return HttpResponse("Error")
+
+
+
