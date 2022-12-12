@@ -69,12 +69,12 @@ def account_register(request):
         return redirect("catalogue:store_home")
 
     if request.method == "POST":
-        registerForm = RegistrationForm(request.POST)
-        if registerForm.is_valid():
-            user = registerForm.save(commit=False)
-            user.email = registerForm.cleaned_data["email"]
-            user.username = registerForm.cleaned_data["email"].split("@")[0]
-            user.set_password(registerForm.cleaned_data["password"])
+        register_Form = RegistrationForm(request.POST)
+        if register_Form.is_valid():
+            user = register_Form.save(commit=False)
+            user.email = register_Form.cleaned_data["email"]
+            user.username = register_Form.cleaned_data["email"].split("@")[0]
+            user.set_password(register_Form.cleaned_data["password"])
             user.is_active = False
             user.save()
             current_site = get_current_site(request)
@@ -89,12 +89,12 @@ def account_register(request):
                 },
             )
             user.email_user(subject=subject, message=message)
-            return render(request, "account/registration/register_email_confirm.html", {"form": registerForm})
+            return render(request, "account/registration/register_email_confirm.html", {"form": register_Form})
         else:
             return HttpResponse("Error handler content", status=400)
     else:
-        registerForm = RegistrationForm()
-    return render(request, "account/registration/register.html", {"form": registerForm})
+        register_Form = RegistrationForm()
+    return render(request, "account/registration/register.html", {"form": register_Form})
 
 
 def account_activate(request, uidb64, token):
@@ -114,9 +114,9 @@ def account_activate(request, uidb64, token):
 
 def incidencia(request, incidencia_id=None):
     
-    instance = Incidencia()
+    
     if incidencia_id:
-        instance = get_object_or_404(incidencia, pk=incidencia_id)
+        instance = get_object_or_404(Incidencia, pk=incidencia_id)
     else:
         instance = Incidencia()
     
@@ -128,7 +128,7 @@ def incidencia(request, incidencia_id=None):
         tipo_elegido=form['Tipo'].value()
         if tipo_elegido == '1':
             id=incidencia.id
-            print(id)
+            
             return HttpResponseRedirect(reverse('catalogue:eventos',args=[id] ))
         
         else:

@@ -100,7 +100,7 @@ def next_month(d):
 
 def event(request, event_id=None):
     
-    instance = Event()
+    
     if event_id:
         instance = get_object_or_404(Event, pk=event_id)
     else:
@@ -117,11 +117,10 @@ def event(request, event_id=None):
         form.save()
         fecha=form['start_time'].value()
         departamento=form['Departamento'].value()
-        id_departamento=Department.objects.filter(name__contains= departamento)[0]
         medico= form['Medico'].value()
         id_medico=Medic.objects.filter(name__contains= medico.split(' ')[0]  ,department=departamento)[0].id
         
-        carrito= basket_add2(request,id_medico,fecha)
+        basket_add2(request,id_medico,fecha)
         
         return HttpResponseRedirect(reverse('basket:basket_summary'))
     return render(request, 'catalogue/event.html', {'form': form, 'email': request.session["email"]})

@@ -14,7 +14,7 @@ def basket_summary(request):
 
 
 def basket_add(request):
-    # TODO: No permitir agregar citas a un mismo medic en el mismo horario
+    
     basket = Basket(request)
     if request.POST.get("action") == "post":
         product_id = int(request.POST.get("product_id"))
@@ -27,7 +27,7 @@ def basket_add(request):
         return response
 
 def basket_add2(request, product_id, meeting_time):
-    # TODO: No permitir agregar citas a un mismo medic en el mismo horario
+    
         basket = Basket(request)    
         product = get_object_or_404(Medic, id=product_id)
         basket.add(medic=product, meeting_time=meeting_time)
