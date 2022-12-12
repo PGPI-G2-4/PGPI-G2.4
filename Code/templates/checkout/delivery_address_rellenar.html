@@ -1,0 +1,100 @@
+{% extends "../base.html" %}
+{% load static %}
+{% block title %}Basket Summary{%endblock %}
+{% block content %}
+
+<div class="container">
+  <div class="col-12">
+    <h1 class="h2">Direcciones de Envío</h1>
+  </div>
+  <div class="col-12">
+    <p>Por favor, dótenos de su dirección de envío</p>
+  </div>
+  <hr />
+</div>
+
+
+<div class="container">
+  <div class="row g-3">
+    {% if opcion %}
+    <div class="col-12">Por favor, escriba su informacion para futuras compras</div>
+    <div class="col-12">
+      <p>Escribe tu nombre:</p>
+      <input type="text" class="form-control" id="first_name" name="first_name" placeholder="nombre" />
+      <p>Escribe tu apellido:</p>
+      <input type="text" class="form-control" id="last_name" name="last_name" placeholder="apellido" />
+      <p>Escribe tu edad:</p>
+      <input type="number" class="form-control" id="age" name="age" placeholder="edad" />
+      <p>Selecciona tu genero:</p>
+      <select id="gender" name="gender">
+        <option value="M">Hombre</option>
+        <option value="F" selected>Mujer</option>
+      </select>
+      <p>Escribe tus alergias:</p>
+      <input type="text" class="form-control" id="alergies" name="alergies" placeholder="alergias" />
+      <p>Escribe tus patologias:</p>
+      <input type="text" class="form-control" id="pathologies" name="pathologies" placeholder="patologias" />
+      <button type="button"  id="update_email">Confirmar</button>
+
+    {% else %}
+    <div class="col-md-4 col-lg-4 order-md-last p-0 order-3">
+    
+<div class="d-flex bd-highlight ms-0">
+  <div class="p-2 flex-grow-1 bd-highlight">Sub Total:</div>
+  <div class="p-2 bd-highlight"><span class="fw-bold h5">€</span><span id="sub_total"class="fw-bold h5">{{basket.get_subtotal_price}}</span></div>
+</div>
+<div class="d-flex bd-highlight">
+  <div class="p-2 flex-grow-1 bd-highlight">Coste de Envío:</div>
+  <div class="p-2 bd-highlight"><span class="fw-bold h5">€</span><span id="delivery_price" class="fw-bold h5">{{basket.get_delivery_price}}</span></div>
+</div>
+<div class="d-flex bd-highlight">
+  <div class="p-2 flex-grow-1 bd-highlight">Total:</div>
+  <div class="p-2 bd-highlight"><span class="fw-bold h5">€</span><span id="total"class="fw-bold h5">{{basket.get_total_price}}</span></div>
+</div>
+<a role="button" href="{% url 'checkout:payment_selection' %}" class="btn btn-success fw-bold w-100" type="button">Paga de Forma Segura</a>
+</div>
+    
+    <div class="col-md-7 col-lg-8">
+        <h1 class="h5 pt-4">Dirección de correo actual</h1>
+        <p>{{email}}</p>
+
+    </div>
+    {% endif %}
+  </div>
+  
+</div>
+
+    <script>
+        $(document).on('click', '#update_email', function(e) {
+            var email = $('#email').val();
+            var first_name = $('#first_name').val();
+            var last_name = $('#last_name').val();
+            var age = $('#age').val();
+            var gender = $('#gender').val();
+            var alergies = $('#alergies').val();
+            var pathologies = $('#pathologies').val();
+            e.preventDefault();
+            $.ajax({
+                url: "{% url 'checkout:update_email2' %}",
+                type: "POST",
+                data: {
+                    'email': email,
+                    'first_name': first_name,
+                    'last_name': last_name,
+                    'age': age,
+                    'gender': gender,
+                    'alergies': alergies,
+                    'pathologies': pathologies,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(data) {
+                    location.reload();
+                }
+            });
+        });
+    </script>
+
+{% endblock %}
+
+
+
