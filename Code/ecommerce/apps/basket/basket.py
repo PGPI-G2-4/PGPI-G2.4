@@ -4,7 +4,7 @@ from decimal import Decimal
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 
-from ecommerce.apps.catalogue.models import Medic
+from ecommerce.apps.catalogue.models import Medic, Event
 from ecommerce.apps.orders.models import Appointment
 from ecommerce.apps.checkout.models import DeliveryOptions
 
@@ -90,9 +90,20 @@ class Basket:
             self.basket[appointment_id]["meeting_time"] = str(meeting_time)
             # Save new date to the appointment
             appointment = Appointment.objects.get(id=appointment_id)
+
+            # Save new date to the Event with the same session email before the appointment
+            event = Event.objects.get(client_email=self.session["email"], start_time=appointment.date_time)
+            event.start_time = meeting_time
+            event.save()
+
             appointment.date_time = meeting_time
             appointment.save()
+
+
+
             self.save()
+
+
 
 
     def get_subtotal_price(self):

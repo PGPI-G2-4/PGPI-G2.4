@@ -86,9 +86,7 @@
           subtotal = json.subtotal
         }
 
-        document.getElementById("subtotal").innerHTML = subtotal;
-        document.getElementById("basket-qty").innerHTML = json.qty;
-        document.getElementById("total").innerHTML = total;
+        document.getElementById("total").innerHTML = subtotal;
       },
       error: function (xhr, errmsg, err) {},
     });
@@ -111,8 +109,6 @@
       success: function (json) {
 
         total = (parseFloat(json.subtotal)).toFixed(2);
-        document.getElementById("basket-qty").innerHTML = json.qty;
-        document.getElementById("subtotal").innerHTML = json.subtotal;
         document.getElementById("total").innerHTML = total;
       },
       error: function (xhr, errmsg, err) {},
