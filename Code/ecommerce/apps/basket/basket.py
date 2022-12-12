@@ -48,14 +48,7 @@ class Basket:
         print("Appointment added to the basket")
 
 
-        # product_id = str(product.id)
-        #
-        # if product_id in self.basket:
-        #     self.basket[product_id]["meeting_time"] = meeting_time
-        # else:
-        #     self.basket[product_id] = {"price": str(product.regular_price), "meeting_time": meeting_time}
-        #
-        # self.save()
+       
 
     def __iter__(self):
         """
