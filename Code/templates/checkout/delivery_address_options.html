@@ -1,0 +1,50 @@
+{% extends "../base.html" %}
+{% load static %}
+{% block title %}Basket Summary{%endblock %}
+{% block content %}
+
+<div class="container">
+  <div class="col-12">
+    <h1 class="h2">Direcciones de Envío</h1>
+  </div>
+  <div class="col-12">
+    <p>Por favor, dótenos de su dirección de envío</p>
+  </div>
+  <hr />
+</div>
+
+
+<div class="container">
+  <div class="row g-3">
+    <div class="col-12">Por favor, escriba su email</div>
+    <div class="col-12">
+      <input type="text" class="form-control" id="email" name="email" placeholder="email" />
+        <button type="button"  class="btn btn-primary m-1" id="update_email">Confirmar</button>
+
+    
+  </div>
+  
+</div>
+
+    <script>
+        $(document).on('click', '#update_email', function(e) {
+          var email = $('#email').val();
+            e.preventDefault();
+            $.ajax({
+                url: "{% url 'checkout:update_email' %}",
+                type: "POST",
+                data: {
+                    'email': email,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(data) {
+                  location.href = "{% url 'checkout:rellenar' %}";
+                }
+            });
+        });
+    </script>
+
+{% endblock %}
+
+
+
